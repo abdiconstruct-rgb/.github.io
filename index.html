@@ -7,7 +7,6 @@
 
 <!-- =====================================================================
      BAGIAN 1: SETINGAN DASAR & CSS
-     (Memuat font, Tailwind CSS, Chart.js, dan desain warna/visual)
      ===================================================================== -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -61,7 +60,6 @@
   .pill-accent{color:var(--accent);border-color:rgba(255,107,26,0.35);background:rgba(255,107,26,0.08)}
   .pill-success{color:var(--success);border-color:rgba(95,208,126,0.3);background:rgba(95,208,126,0.07)}
   .pill-warning{color:var(--warning);border-color:rgba(255,181,71,0.3);background:rgba(255,181,71,0.07)}
-  .pill-danger{color:var(--danger);border-color:rgba(255,82,82,0.3);background:rgba(255,82,82,0.07)}
 
   .live-dot{
     width:8px;height:8px;border-radius:50%;background:var(--success);
@@ -147,7 +145,7 @@
 <body>
 
 <!-- =====================================================================
-     BAGIAN 2: HEADER ATAS (GANTI TEKS NAMA APLIKASI & PROYEK)
+     BAGIAN 2: HEADER ATAS
      ===================================================================== -->
 <header class="header-glow sticky top-0 z-50 layer">
   <div class="max-w-[1600px] mx-auto px-6 py-3 flex items-center justify-between gap-6">
@@ -166,7 +164,6 @@
     <div class="hidden lg:flex items-center gap-3 px-4 py-2 rounded-lg" style="background:var(--surface-2);border:1px solid var(--border)">
       <div class="w-2 h-2 rounded-full" style="background:var(--accent)"></div>
       <div>
-        <!-- UBAH NAMA PROYEK & ID DI SINI -->
         <div class="text-[13px] font-semibold">Tower Sentral Graha</div>
         <div class="text-[10px] text-[var(--muted)] mono">PROJ-ID: TSG-2026-018</div>
       </div>
@@ -187,7 +184,7 @@
 </header>
 
 <!-- =====================================================================
-     BAGIAN 3: INFO PROYEK (GANTI JUDUL, DESKRIPSI, NILAI KONTRAK)
+     BAGIAN 3: INFO PROYEK
      ===================================================================== -->
 <main class="max-w-[1600px] mx-auto px-6 py-8 layer">
 
@@ -198,15 +195,12 @@
         <span class="pill" id="contractProgress">Bulan Ke-6 / 10</span>
         <span class="pill">Kontrak: 10 Bulan</span>
       </div>
-      <!-- UBAH JUDUL PROYEK DI SINI -->
       <h1 class="display display-xl" style="font-size:64px;line-height:0.95">Tower Sentral<br>Graha<span style="color:var(--accent)">.</span></h1>
-      <!-- UBAH DESKRIPSI LOKASI & LUAS DI SINI -->
       <p class="text-[var(--fg-dim)] mt-3 text-[14px] max-w-xl">Pembangunan gedung perkantoran 24 lantai dengan luas total 42,800 m². Lokasi: SCBD Lot 14, Jakarta Selatan.</p>
     </div>
     <div class="grid grid-cols-3 gap-3 min-w-[440px]">
       <div class="card p-4 flex flex-col justify-center">
         <div class="text-[10px] uppercase tracking-widest text-[var(--muted)] mb-1">Nilai Kontrak</div>
-        <!-- UBAH NILAI KONTRAK DI SINI -->
         <div class="mono text-[18px] font-bold">Rp 285<span style="color:var(--accent)">M</span></div>
       </div>
       <div class="card p-4 flex flex-col justify-center">
@@ -223,7 +217,7 @@
   </div>
 
   <!-- =====================================================================
-       BAGIAN 4: RING PROGRES & KURVA S (TIDAK PERLU DIUBAH, OTOMATIS DARI JS)
+       BAGIAN 4: RING PROGRES & KURVA S (OTOMATIS DIHITUNG DARI INPUT DATA)
        ===================================================================== -->
   <section class="grid grid-cols-1 xl:grid-cols-3 gap-5 mb-5 reveal">
     
@@ -260,7 +254,7 @@
         </div>
         <div class="text-center">
           <div class="text-[10px] uppercase text-[var(--muted)]">SPI</div>
-          <div class="mono font-bold text-[15px] text-[var(--warning)]">0.90</div>
+          <div class="mono font-bold text-[15px] text-[var(--warning)]" id="spiVal">0.90</div>
         </div>
       </div>
     </div>
@@ -282,7 +276,7 @@
   </section>
 
   <!-- =====================================================================
-       BAGIAN 5: PROGRES PEKERJAAN (UBAH PERSENTASE & NAMA DISIPLIN DI SINI)
+       BAGIAN 5: PROGRES PEKERJAAN (OTOMATIS DIRENDER DARI JAVASCRIPT)
        ===================================================================== -->
   <section class="grid grid-cols-1 xl:grid-cols-5 gap-5 mb-5 reveal">
     
@@ -292,103 +286,10 @@
         <div class="text-[11px] text-[var(--muted)] mono">Bobot dalam %</div>
       </div>
 
-      <div class="space-y-4">
-        <!-- DISIPLIN 1 -->
-        <div>
-          <div class="flex items-center justify-between mb-2">
-            <div class="flex items-center gap-3">
-              <span class="text-[13px] font-semibold">Pondasi & Struktur Bawah</span>
-              <span class="pill pill-success" style="padding:2px 8px;font-size:9px">SELESAI</span>
-            </div>
-            <div class="flex items-center gap-4">
-              <span class="text-[11px] text-[var(--muted)] mono">Bobot 18%</span>
-              <span class="mono font-bold text-[14px] w-12 text-right">100%</span>
-            </div>
-          </div>
-          <div class="bar-track"><div class="bar-fill" style="width:100%;background:linear-gradient(90deg,#5fd07e,#3da55c)"></div></div>
-        </div>
-
-        <!-- DISIPLIN 2 -->
-        <div>
-          <div class="flex items-center justify-between mb-2">
-            <div class="flex items-center gap-3">
-              <span class="text-[13px] font-semibold">Struktur Atas (Beton & Baja)</span>
-              <span class="pill pill-success" style="padding:2px 8px;font-size:9px">SELESAI</span>
-            </div>
-            <div class="flex items-center gap-4">
-              <span class="text-[11px] text-[var(--muted)] mono">Bobot 32%</span>
-              <span class="mono font-bold text-[14px] w-12 text-right">100%</span>
-            </div>
-          </div>
-          <div class="bar-track"><div class="bar-fill" style="width:68%"></div></div>
-          <div class="text-[11px] text-[var(--fg-dim)] mt-1.5">Lantai 16 dari 24 · Top-off dijadwalkan Feb 2027</div>
-        </div>
-
-        <!-- DISIPLIN 3 -->
-        <div>
-          <div class="flex items-center justify-between mb-2">
-            <div class="flex items-center gap-3">
-              <span class="text-[13px] font-semibold">Pekerjaan Arsitektur</span>
-              <span class="pill pill-success" style="padding:2px 8px;font-size:9px">SELESAI</span>
-            </div>
-            <div class="flex items-center gap-4">
-              <span class="text-[11px] text-[var(--muted)] mono">Bobot 20%</span>
-              <span class="mono font-bold text-[14px] w-12 text-right">100%</span>
-            </div>
-          </div>
-          <div class="bar-track"><div class="bar-fill" style="width:23%;background:linear-gradient(90deg,#ffb547,#ff8a1a)"></div></div>
-          <div class="text-[11px] text-[var(--fg-dim)] mt-1.5">Dinding partisi L1-L8 · plesteran L3-L6</div>
-        </div>
-
-        <!-- DISIPLIN 4 -->
-        <div>
-          <div class="flex items-center justify-between mb-2">
-            <div class="flex items-center gap-3">
-              <span class="text-[13px] font-semibold">Mechanical, Electrical, Plumbing</span>
-              <span class="pill pill-success" style="padding:2px 8px;font-size:9px">SELESAI</span>
-            </div>
-            <div class="flex items-center gap-4">
-              <span class="text-[11px] text-[var(--muted)] mono">Bobot 22%</span>
-              <span class="mono font-bold text-[14px] w-12 text-right">100%</span>
-            </div>
-          </div>
-          <div class="bar-track"><div class="bar-fill" style="width:31%;background:linear-gradient(90deg,#5ab4e0,#3a7ea8)"></div></div>
-          <div class="text-[11px] text-[var(--fg-dim)] mt-1.5">Rough-in plumbing L5-L10 · cable tray L7-L12</div>
-        </div>
-
-        <!-- DISIPLIN 5 -->
-        <div>
-          <div class="flex items-center justify-between mb-2">
-            <div class="flex items-center gap-3">
-              <span class="text-[13px] font-semibold">Finishing Interior</span>
-              <span class="pill" style="padding:2px 8px;font-size:9px">UPCOMING</span>
-            </div>
-            <div class="flex items-center gap-4">
-              <span class="text-[11px] text-[var(--muted)] mono">Bobot 6%</span>
-              <span class="mono font-bold text-[14px] w-12 text-right">8%</span>
-            </div>
-          </div>
-          <div class="bar-track"><div class="bar-fill" style="width:8%;background:linear-gradient(90deg,#7c8ba1,#5a6678)"></div></div>
-        </div>
-
-        <!-- DISIPLIN 6 -->
-        <div>
-          <div class="flex items-center justify-between mb-2">
-            <div class="flex items-center gap-3">
-              <span class="text-[13px] font-semibold">Fasad & Lanskap</span>
-              <span class="pill" style="padding:2px 8px;font-size:9px">UPCOMING</span>
-            </div>
-            <div class="flex items-center gap-4">
-              <span class="text-[11px] text-[var(--muted)] mono">Bobot 2%</span>
-              <span class="mono font-bold text-[14px] w-12 text-right">0%</span>
-            </div>
-          </div>
-          <div class="bar-track"><div class="bar-fill" style="width:0%;background:linear-gradient(90deg,#7c8ba1,#5a6678)"></div></div>
-        </div>
-      </div>
+      <!-- Kontainer ini akan diisi otomatis oleh JS berdasarkan input data -->
+      <div class="space-y-4" id="disciplineList"></div>
     </div>
 
-    <!-- TIMELINE (DIOLEH OTOMATIS OLEH JS DI BAGIAN BAWAH) -->
     <div class="card p-6 xl:col-span-2">
       <div class="flex items-center justify-between mb-5">
         <div class="section-title">Milestone Timeline</div>
@@ -462,7 +363,7 @@
   </section>
 
   <!-- =====================================================================
-       BAGIAN 6: DOKUMENTASI FOTO (GANTI URL GAMBAR & KETERANGAN DI SINI)
+       BAGIAN 6: DOKUMENTASI FOTO (UBAH URL GAMBAR DI SINI)
        ===================================================================== -->
   <section class="card p-6 mb-5 reveal">
     <div class="flex items-center justify-between mb-5">
@@ -477,7 +378,6 @@
     </div>
 
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-      <!-- FOTO 1 -->
       <div class="photo-card">
         <img src="https://picsum.photos/seed/construction-tower-1/400/300.jpg" alt="">
         <div class="badge">Lantai 16</div>
@@ -486,7 +386,6 @@
           <div class="text-[9px] text-[var(--muted)] mono">07:30 · FC-04</div>
         </div>
       </div>
-      <!-- FOTO 2 -->
       <div class="photo-card">
         <img src="https://picsum.photos/seed/construction-tower-2/400/300.jpg" alt="">
         <div class="badge">Lantai 14</div>
@@ -495,7 +394,6 @@
           <div class="text-[9px] text-[var(--muted)] mono">06:50 · TC-02</div>
         </div>
       </div>
-      <!-- FOTO 3 -->
       <div class="photo-card">
         <img src="https://picsum.photos/seed/construction-tower-3/400/300.jpg" alt="">
         <div class="badge">MEP</div>
@@ -504,7 +402,6 @@
           <div class="text-[9px] text-[var(--muted)] mono">Lantai 9 · 06:30</div>
         </div>
       </div>
-      <!-- FOTO 4 -->
       <div class="photo-card">
         <img src="https://picsum.photos/seed/construction-tower-4/400/300.jpg" alt="">
         <div class="badge">Safety</div>
@@ -513,7 +410,6 @@
           <div class="text-[9px] text-[var(--muted)] mono">07:00 · Lobi</div>
         </div>
       </div>
-      <!-- FOTO 5 -->
       <div class="photo-card">
         <img src="https://picsum.photos/seed/construction-tower-5/400/300.jpg" alt="">
         <div class="badge">Lantai 8</div>
@@ -522,7 +418,6 @@
           <div class="text-[9px] text-[var(--muted)] mono">Lantai 6 · 06:45</div>
         </div>
       </div>
-      <!-- FOTO 6 -->
       <div class="photo-card">
         <img src="https://picsum.photos/seed/construction-tower-6/400/300.jpg" alt="">
         <div class="badge">Drone</div>
@@ -535,9 +430,9 @@
   </section>
 
   <!-- =====================================================================
-       BAGIAN 7: FOOTER (GANTI NAMA PERUSAHAAN)
+       BAGIAN 7: FOOTER
        ===================================================================== -->
-  <footer class="mt-8 pt-6 border-t flex flex-col md:flexrow items-center justify-between gap-4" style="border-color:var(--border)">
+  <footer class="mt-8 pt-6 border-t flex flex-col md:flex-row items-center justify-between gap-4" style="border-color:var(--border)">
     <div class="flex items-center gap-3 text-[11px] text-[var(--muted)]">
       <span class="mono">PROBUILD DASH · v2.4.1</span>
       <span>·</span>
@@ -552,11 +447,24 @@
 </main>
 
 <!-- =====================================================================
-     BAGIAN 8: JAVASCRIPT (LOGIKA WAKTU & GRAFIK)
-     (Ubah tanggal mulai kontrak di Bagian 8.2 jika jadwal berubah)
+     BAGIAN 8: JAVASCRIPT (LOGIKA DASBOR)
      ===================================================================== -->
 <script>
-  // ===== 8.1 FUNGSI BANTU TANGGAL =====
+  // =====================================================================
+  // 8.1 INPUT DATA LAPANGAN (UBAH ANGKA DI SINI SECARA MANUAL)
+  // Ubah nilai "progress" (0-100) sesuai kondisi nyata di lapangan.
+  // "bobot" adalah persentase bobot pekerjaan terhadap total proyek.
+  // =====================================================================
+  const dataDisiplin = [
+    { nama: "Pondasi & Struktur Bawah", bobot: 18, progress: 100, status: "SELESAI" },
+    { nama: "Struktur Atas (Beton & Baja)", bobot: 32, progress: 68, status: "ON-GOING" },
+    { nama: "Pekerjaan Arsitektur", bobot: 20, progress: 23, status: "ON-GOING" },
+    { nama: "Mechanical, Electrical, Plumbing", bobot: 22, progress: 31, status: "ON-GOING" },
+    { nama: "Finishing Interior", bobot: 6, progress: 8, status: "UPCOMING" },
+    { nama: "Fasad & Lanskap", bobot: 2, progress: 0, status: "UPCOMING" }
+  ];
+
+  // ===== 8.2 FUNGSI BANTU TANGGAL & WAKTU =====
   const monthNamesShort = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
   const monthNamesLong = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
@@ -568,38 +476,78 @@
   function diffDays(d1, d2) { return Math.round((d1 - d2) / (1000 * 60 * 60 * 24)); }
   function getTimeStr(d) { return `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`; }
 
-  // ===== 8.2 SETINGAN TANGGAL KONTRAK (UBAH DI SINI JIKA PERLU) =====
+  // ===== 8.3 SETINGAN TANGGAL KONTRAK =====
   const today = new Date();
-  const projectStart = new Date(2026, 5, 17); // Tanggal Mulai: 17 Juni 2026 (Bulan 0-index: 5=Juni)
-  const projectEnd = new Date(2027, 3, 17);   // Tanggal Selesai: 17 April 2027 (Durasi: 10 Bulan)
+  const projectStart = new Date(2026, 5, 17); // 17 Juni 2026
+  const projectEnd = new Date(2027, 3, 17);   // 17 April 2027
   
   let monthsPassed = (today.getFullYear() - projectStart.getFullYear()) * 12 + (today.getMonth() - projectStart.getMonth());
   let reportDate = today;
   
-  // Simulasi: Jika dashboard dibuka sebelum proyek dimulai, tampilkan report bulan ke-6
-  if (monthsPassed < 0) {
-    monthsPassed = 6; 
-    reportDate = addMonths(projectStart, monthsPassed); 
-  } else if (monthsPassed > 10) {
-    monthsPassed = 10;
-    reportDate = projectEnd;
-  }
+  if (monthsPassed < 0) { monthsPassed = 6; reportDate = addMonths(projectStart, monthsPassed); } 
+  else if (monthsPassed > 10) { monthsPassed = 10; reportDate = projectEnd; }
   
   const daysLeft = diffDays(projectEnd, reportDate);
-  
-  // Kalkulasi persentase progres simulasi berdasarkan kurva S logistik
-  const progressVal = +(1 / (1 + Math.exp(-7 * ((monthsPassed / 10) - 0.5))) * 100 * 0.92).toFixed(1);
-  const plannedVal = +(1 / (1 + Math.exp(-7 * ((monthsPassed / 10) - 0.5))) * 100).toFixed(1);
-  const varianceVal = (progressVal - plannedVal).toFixed(1);
 
-  // Update Teks di HTML
+  // ===== 8.4 KALKULASI PROGRES OTOMATUS BERDASARKAN INPUT DATA =====
+  let totalProgressVal = 0;
+  let totalBobot = 0;
+  const discList = document.getElementById('disciplineList');
+  discList.innerHTML = '';
+
+  dataDisiplin.forEach(d => {
+    // Hitung total progres kumulatif (Progress * Bobot)
+    totalProgressVal += (d.progress * d.bobot / 100);
+    totalBobot += d.bobot;
+
+    // Tentukan warna bar dan pill
+    let pillClass = 'pill';
+    if(d.status === 'SELESAI') pillClass += ' pill-success';
+    else if(d.status === 'ON-GOING') pillClass += ' pill-accent';
+
+    let barColor = 'var(--accent)';
+    if(d.status === 'SELESAI') barColor = 'linear-gradient(90deg,#5fd07e,#3da55c)';
+    else if(d.status === 'ON-GOING') barColor = 'var(--accent)';
+    else barColor = 'linear-gradient(90deg,#7c8ba1,#5a6678)';
+
+    // Render HTML otomatis untuk list disiplin
+    const html = `
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center gap-3">
+            <span class="text-[13px] font-semibold">${d.nama}</span>
+            <span class="${pillClass}" style="padding:2px 8px;font-size:9px">${d.status}</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <span class="text-[11px] text-[var(--muted)] mono">Bobot ${d.bobot}%</span>
+            <span class="mono font-bold text-[14px] w-12 text-right">${d.progress}%</span>
+          </div>
+        </div>
+        <div class="bar-track"><div class="bar-fill" style="width:${d.progress}%;background:${barColor}"></div></div>
+      </div>
+    `;
+    discList.innerHTML += html;
+  });
+
+  // Hitung nilai akhir progres (0-100)
+  const progressVal = +(totalProgressVal / (totalBobot / 100)).toFixed(1);
+  
+  // Hitung Planned (Rencana) berdasarkan waktu
+  const plannedVal = +(1 / (1 + Math.exp(-7 * ((monthsPassed / 10) - 0.5))) * 100).toFixed(1);
+  
+  // Hitung Variance dan SPI
+  const varianceVal = (progressVal - plannedVal).toFixed(1);
+  const spiVal = (progressVal / plannedVal).toFixed(2);
+
+  // ===== 8.5 UPDATE UI DASBOR =====
   document.getElementById('contractProgress').textContent = `Bulan Ke-${monthsPassed + 1} / 10`;
   document.getElementById('endInfo').textContent = `2027 · ${daysLeft > 0 ? daysLeft + ' hari lagi' : 'Selesai'}`;
   document.getElementById('plannedPercent').textContent = plannedVal + '%';
   document.getElementById('variancePercent').textContent = (varianceVal > 0 ? '+' : '') + varianceVal + '%';
   document.getElementById('variancePercent').style.color = varianceVal < 0 ? 'var(--danger)' : 'var(--success)';
+  document.getElementById('spiVal').textContent = spiVal;
 
-  // ===== 8.3 JAM REAL-TIME =====
+  // ===== 8.6 JAM REAL-TIME =====
   function updateClock() {
     const now = new Date();
     document.getElementById('liveClock').textContent = getTimeStr(now);
@@ -610,7 +558,7 @@
   updateClock();
   setInterval(updateClock, 1000);
 
-  // ===== 8.4 KALKULASI MILESTONE DINAMIS =====
+  // ===== 8.7 KALKULASI MILESTONE DINAMIS =====
   const l10Done = addMonths(projectStart, 4);  
   const l16Active = addDays(reportDate, 6);    
   const topOff = addMonths(projectStart, 6);   
@@ -623,22 +571,20 @@
   document.getElementById('msTopOffDays').textContent = `+${diffDays(topOff, reportDate)} hari`;
   document.getElementById('msMEPDays').textContent = `+${diffDays(mepTesting, reportDate)} hari`;
 
-  // Update label bawah timeline
   const tlDates = [projectStart, addMonths(projectStart, 2), addMonths(projectStart, 4), addMonths(projectStart, 6), addMonths(projectStart, 8), projectEnd];
   tlDates.forEach((d, i) => {
     const el = document.getElementById(`tl${i+1}`);
     if(el) el.textContent = `${monthNamesShort[d.getMonth()]} ${String(d.getFullYear()).substring(2)}`;
   });
 
-  // Update bar progress milestone
-  const msProgress = (monthsPassed / 10) * 100;
-  document.getElementById('msProgressBar').style.width = msProgress + '%';
+  // Bar milestone diubah untuk merepresentasikan progress manual, bukan waktu
+  document.getElementById('msProgressBar').style.width = progressVal + '%';
 
-  // ===== 8.5 ANIMASI RING PROGRES =====
+  // ===== 8.8 ANIMASI RING PROGRES =====
   function animateRing() {
     const ring = document.getElementById('progressRing');
     const num = document.getElementById('progressNum');
-    const target = progressVal;
+    const target = progressVal; // Pakai angka dari kalkulasi data lapangan
     const circumference = 578;
     const duration = 1800;
     const start = performance.now();
@@ -656,7 +602,7 @@
   }
   setTimeout(animateRing, 300);
 
-  // ===== 8.6 GRAFIK KURVA S =====
+  // ===== 8.9 GRAFIK KURVA S (MENGGABUNGKAN MANUAL & OTOMATIS) =====
   const ctx = document.getElementById('sCurveChart').getContext('2d');
   const monthLabels = [];
   for(let i = 0; i <= 10; i++) {
@@ -665,21 +611,20 @@
   }
   const totalMonths = monthLabels.length; 
 
-  // Data Rencana (Planned)
   const planned = monthLabels.map((_, i) => {
     const x = i / (totalMonths - 1);
     return +(1 / (1 + Math.exp(-7 * (x - 0.5))) * 100).toFixed(1);
   });
 
-  // Data Realisasi (Actual)
+  // Data Actual: Bulan-bulan sebelumnya memakai simulasi, bulan terkini memakai input manual
   const actual = monthLabels.map((_, i) => {
     if(i > monthsPassed) return null;
+    if(i === monthsPassed) return progressVal; // Input manual dari lapangan
     const x = i / (totalMonths - 1);
     const base = 1 / (1 + Math.exp(-7 * (x - 0.5))) * 100;
-    return +(base * 0.92 + (Math.random() - 0.5) * 1.5).toFixed(1);
+    return +(base * 0.92).toFixed(1); // Data bulan lalu
   });
   
-  // Konfigurasi Chart
   new Chart(ctx, {
     type: 'line',
     data: {
