@@ -496,9 +496,9 @@
        ===================================================================== -->
   <footer class="mt-8 pt-6 border-t flex flex-col md:flex-row items-center justify-between gap-4" style="border-color:var(--border)">
     <div class="flex items-center gap-3 text-[11px] text-[var(--muted)]">
-      <span class="mono">PROBUILD DASH · v2.4.1</span>
+      <span class="mono">PROGRESS DASHBOARD· v2.4.1</span>
       <span>·</span>
-      <span>Powered by PT. Wijaya Konstruksi</span>
+      <span>Powered by ARTHA BANGUN DIMENSI</span>
     </div>
     <div class="flex flex-col md:flex-row items-center gap-2 md:gap-4 text-[11px] text-[var(--muted)]">
       <span>Last sync: <span class="mono text-[var(--fg-dim)]" id="footerSync">-</span></span>
@@ -612,9 +612,9 @@
   setInterval(updateClock, 1000);
 
   // ===== 8.7 KALKULASI MILESTONE DINAMIS =====
-  const l10Done = addMonths(projectStart, 1);  
-  const l16Active = addMonths(reportDate, 1);    
-  const topOff = addMonths(projectStart, 1);   
+  const l10Done = addMonths(projectStart, 2);  
+  const l16Active = addMonths(projectStart, 2);    
+  const topOff = addMonths(projectStart, 2);   
   const mepTesting = addMonths(projectStart, 7); 
 
   document.getElementById('msL10').textContent = `Target: ${formatDateShort(l10Done)}`;
