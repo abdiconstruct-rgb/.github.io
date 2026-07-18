@@ -231,6 +231,7 @@
       <div class="card p-3 md:p-4 flex flex-col justify-center">
         <div class="text-[9px] md:text-[10px] uppercase tracking-widest text-[var(--muted)] mb-1">Pekerja</div>
         <div class="mono text-[16px] md:text-[18px] font-bold">8 <span style="color:var(--accent)">Orang</span></div>
+        <div class="text-[10px] text-[var(--muted)] mt-1">Tetap</div>
       </div>
       <div class="card p-3 md:p-4 flex flex-col justify-center">
         <div class="text-[9px] md:text-[10px] uppercase tracking-widest text-[var(--muted)] mb-1">Mulai</div>
@@ -371,6 +372,18 @@
       </div>
 
       <div class="space-y-2.5">
+           
+           <div class="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-white/[0.02]">
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="w-2 h-2 rounded-full flex-shrink-0" style="background:var(--success)"></div>
+            <div class="min-w-0">
+              <div class="text-[12px] font-semibold text-[var(--fg-dim)] line-through truncate">Persiapan, Bongkaran, Galian & Urug</div>
+              <div class="text-[10px] text-[var(--muted)] mono" id="msL10">Target: -</div>
+            </div>
+          </div>
+          <span class="pill pill-success flex-shrink-0 ml-2" style="padding:2px 8px;font-size:9px">AKTIF</span>
+        </div>
+           
         <div class="flex items-center justify-between py-2 px-3 rounded-lg" style="background:rgba(255,107,26,0.06);border:1px solid rgba(255,107,26,0.2)">
           <div class="flex items-center gap-3 min-w-0">
             <div class="w-2 h-2 rounded-full flex-shrink-0" style="background:var(--accent);box-shadow:0 0 8px var(--accent-glow)"></div>
@@ -404,16 +417,7 @@
           <span class="text-[10px] mono text-[var(--muted)] flex-shrink-0 ml-2" id="msMEPDays">- hari</span>
         </div>
 
-        <div class="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-white/[0.02]">
-          <div class="flex items-center gap-3 min-w-0">
-            <div class="w-2 h-2 rounded-full flex-shrink-0" style="background:var(--success)"></div>
-            <div class="min-w-0">
-              <div class="text-[12px] font-semibold text-[var(--fg-dim)] line-through truncate">Persiapan, Bongkaran, Galian & Urug</div>
-              <div class="text-[10px] text-[var(--muted)] mono" id="msL10">Selesai: -</div>
-            </div>
-          </div>
-          <span class="pill pill-success flex-shrink-0 ml-2" style="padding:2px 8px;font-size:9px">DONE</span>
-        </div>
+        
       </div>
     </div>
   </section>
@@ -608,10 +612,10 @@
   // ===== 8.7 KALKULASI MILESTONE DINAMIS =====
   const l10Done = addMonths(projectStart, 4);  
   const l16Active = addDays(reportDate, 6);    
-  const topOff = addMonths(projectStart, 6);   
+  const topOff = addMonths(projectStart, 3);   
   const mepTesting = addMonths(projectStart, 8); 
 
-  document.getElementById('msL10').textContent = `Selesai: ${formatDateShort(l10Done)} · 2 hari lebih cepat`;
+  document.getElementById('msL10').textContent = `Target: ${formatDateShort(l10Done)}`;
   document.getElementById('msL16').textContent = `Target: ${formatDateShort(l16Active)}`;
   document.getElementById('msTopOff').textContent = `Target: ${formatDateShort(topOff)}`;
   document.getElementById('msMEP').textContent = `Target: ${formatDateShort(mepTesting)}`;
