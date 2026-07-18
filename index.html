@@ -24,7 +24,7 @@
     --danger:#ff5252; --info:#5ab4e0;
   }
   *{box-sizing:border-box}
-  html,body{background:var(--bg);color:var(--fg);font-family:'Archivo',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  html,body{background:var(--bg);color:var(--fg);font-family:'Archivo',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
   .mono{font-family:'JetBrains Mono',monospace}
   .display{font-family:'Archivo';font-weight:900;letter-spacing:-0.04em}
 
@@ -56,6 +56,7 @@
     display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;
     font-size:11px;font-weight:600;letter-spacing:0.04em;border:1px solid var(--border-bright);
     background:rgba(255,255,255,0.02);color:var(--fg-dim);text-transform:uppercase;
+    white-space:nowrap;
   }
   .pill-accent{color:var(--accent);border-color:rgba(255,107,26,0.35);background:rgba(255,107,26,0.08)}
   .pill-success{color:var(--success);border-color:rgba(95,208,126,0.3);background:rgba(95,208,126,0.07)}
@@ -138,26 +139,32 @@
     height:6px;
   }
 
-  @media (max-width:768px){.display-xl{font-size:48px !important}}
+  /* Responsive Typography & Sizing */
+  @media (max-width:768px){
+    .display-xl{font-size:40px !important;line-height:1 !important}
+    .ring-wrap{width:180px;height:180px}
+    .ring-wrap svg{width:180px;height:180px}
+    #progressNum{font-size:42px !important}
+  }
 </style>
 </head>
 
 <body>
 
 <!-- =====================================================================
-     BAGIAN 2: HEADER ATAS
+     BAGIAN 2: HEADER ATAS (TIDAK PERLU DIUBAH MANUAL)
      ===================================================================== -->
 <header class="header-glow sticky top-0 z-50 layer">
-  <div class="max-w-[1600px] mx-auto px-6 py-3 flex items-center justify-between gap-6">
-    <div class="flex items-center gap-4">
-      <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,var(--accent),#cc4d0a);box-shadow:0 0 20px var(--accent-glow)">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1a1300" stroke-width="2.5"><path d="M3 21h18M5 21V7l8-4 8 4v14M9 21v-6h6v6M9 11h6"/></svg>
+  <div class="max-w-[1600px] mx-auto px-4 md:px-6 py-3 flex items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 md:w-10 md:h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background:linear-gradient(135deg,var(--accent),#cc4d0a);box-shadow:0 0 20px var(--accent-glow)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1a1300" stroke-width="2.5"><path d="M3 21h18M5 21V7l8-4 8 4v14M9 21v-6h6v6M9 11h6"/></svg>
       </div>
       <div>
         <div class="flex items-center gap-2">
           <span class="text-[13px] font-bold tracking-wide">PROBUILD DASH</span>
         </div>
-        <div class="text-[10px] text-[var(--muted)] mono uppercase tracking-widest">Construction Control Center</div>
+        <div class="text-[9px] md:text-[10px] text-[var(--muted)] mono uppercase tracking-widest hidden sm:block">Construction Control Center</div>
       </div>
     </div>
 
@@ -170,14 +177,14 @@
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-[var(--muted)]"><path d="M6 9l6 6 6-6"/></svg>
     </div>
 
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-2 md:gap-3">
       <div class="hidden md:flex items-center gap-2 px-3 py-2 rounded-lg" style="background:var(--surface-2);border:1px solid var(--border)">
         <span class="live-dot"></span>
         <span class="text-[11px] mono text-[var(--fg-dim)]">LIVE</span>
         <span class="text-[11px] mono text-[var(--muted)]">·</span>
         <span class="text-[11px] mono" id="liveClock">--:--:--</span>
       </div>
-      <div class="px-4 py-2 rounded-lg flex items-center justify-center font-bold text-[12px]" style="background:linear-gradient(135deg,#3a4452,#1e242e);border:1px solid var(--border-bright)">Excel File</div>
+      <div class="px-3 md:px-4 py-2 rounded-lg flex items-center justify-center font-bold text-[11px] md:text-[12px]" style="background:linear-gradient(135deg,#3a4452,#1e242e);border:1px solid var(--border-bright)">Excel File</div>
     </div>
   </div>
   <div class="stripe"></div>
@@ -186,46 +193,46 @@
 <!-- =====================================================================
      BAGIAN 3: INFO PROYEK
      ===================================================================== -->
-<main class="max-w-[1600px] mx-auto px-6 py-8 layer">
+<main class="max-w-[1600px] mx-auto px-4 md:px-6 py-6 md:py-8 layer">
 
-  <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-8 reveal">
+  <div class="flex flex-col xl:flex-row xl:items-end xl:justify-between gap-6 mb-8 reveal">
     <div>
-      <div class="flex items-center gap-2 mb-3">
+      <div class="flex flex-wrap items-center gap-2 mb-3">
         <span class="pill pill-success"><span class="live-dot"></span> On Track</span>
         <span class="pill" id="contractProgress">Bulan Ke-6 / 10</span>
         <span class="pill">Kontrak: 10 Bulan</span>
       </div>
-      <h1 class="display display-xl" style="font-size:64px;line-height:0.95">Tower Sentral<br>Graha<span style="color:var(--accent)">.</span></h1>
-      <p class="text-[var(--fg-dim)] mt-3 text-[14px] max-w-xl">Pembangunan gedung perkantoran 24 lantai dengan luas total 42,800 m². Lokasi: SCBD Lot 14, Jakarta Selatan.</p>
+      <h1 class="display display-xl text-[40px] sm:text-[56px] xl:text-[64px]" style="line-height:0.95">Tower Sentral<br>Graha<span style="color:var(--accent)">.</span></h1>
+      <p class="text-[var(--fg-dim)] mt-3 text-[13px] md:text-[14px] max-w-xl">Pembangunan gedung perkantoran 24 lantai dengan luas total 42,800 m². Lokasi: SCBD Lot 14, Jakarta Selatan.</p>
     </div>
-    <div class="grid grid-cols-3 gap-3 min-w-[440px]">
-      <div class="card p-4 flex flex-col justify-center">
-        <div class="text-[10px] uppercase tracking-widest text-[var(--muted)] mb-1">Nilai Kontrak</div>
-        <div class="mono text-[18px] font-bold">Rp 285<span style="color:var(--accent)">M</span></div>
+    <div class="grid grid-cols-3 gap-2 md:gap-3 w-full xl:w-auto xl:min-w-[440px]">
+      <div class="card p-3 md:p-4 flex flex-col justify-center">
+        <div class="text-[9px] md:text-[10px] uppercase tracking-widest text-[var(--muted)] mb-1">Nilai Kontrak</div>
+        <div class="mono text-[16px] md:text-[18px] font-bold">Rp 285<span style="color:var(--accent)">M</span></div>
       </div>
-      <div class="card p-4 flex flex-col justify-center">
-        <div class="text-[10px] uppercase tracking-widest text-[var(--muted)] mb-1">Mulai</div>
-        <div class="mono text-[18px] font-bold">17 Jun</div>
+      <div class="card p-3 md:p-4 flex flex-col justify-center">
+        <div class="text-[9px] md:text-[10px] uppercase tracking-widest text-[var(--muted)] mb-1">Mulai</div>
+        <div class="mono text-[16px] md:text-[18px] font-bold">17 Jun</div>
         <div class="text-[10px] text-[var(--muted)] mt-1">2026</div>
       </div>
-      <div class="card p-4 flex flex-col justify-center">
-        <div class="text-[10px] uppercase tracking-widest text-[var(--muted)] mb-1">Target Selesai</div>
-        <div class="mono text-[18px] font-bold">17 Apr</div>
+      <div class="card p-3 md:p-4 flex flex-col justify-center">
+        <div class="text-[9px] md:text-[10px] uppercase tracking-widest text-[var(--muted)] mb-1">Selesai</div>
+        <div class="mono text-[16px] md:text-[18px] font-bold">17 Apr</div>
         <div class="text-[10px] text-[var(--warning)] mt-1" id="endInfo">2027 · 0 hari lagi</div>
       </div>
     </div>
   </div>
 
   <!-- =====================================================================
-       BAGIAN 4: RING PROGRES & KURVA S (OTOMATIS DIHITUNG DARI INPUT DATA)
+       BAGIAN 4: RING PROGRES & KURVA S
        ===================================================================== -->
-  <section class="grid grid-cols-1 xl:grid-cols-3 gap-5 mb-5 reveal">
+  <section class="grid grid-cols-1 xl:grid-cols-3 gap-4 md:gap-5 mb-4 md:mb-5 reveal">
     
-    <div class="card p-6 flex flex-col">
+    <div class="card p-5 md:p-6 flex flex-col">
       <div class="section-title mb-4">Progress Keseluruhan</div>
-      <div class="flex-1 flex items-center justify-center">
+      <div class="flex-1 flex items-center justify-center py-4">
         <div class="ring-wrap">
-          <svg viewBox="0 0 220 220" width="220" height="220">
+          <svg viewBox="0 0 220 220" width="100%" height="100%">
             <defs>
               <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="#ff6b1a"/>
@@ -237,63 +244,63 @@
               stroke-linecap="round" stroke-dasharray="578" stroke-dashoffset="578" transform="rotate(-90 110 110)"/>
           </svg>
           <div class="absolute inset-0 flex flex-col items-center justify-center">
-            <div class="text-[11px] uppercase tracking-widest text-[var(--muted)]">Terselesaikan</div>
-            <div class="display mono" style="font-size:56px;line-height:1" id="progressNum">0.0<span style="color:var(--accent);font-size:32px">%</span></div>
+            <div class="text-[10px] md:text-[11px] uppercase tracking-widest text-[var(--muted)]">Terselesaikan</div>
+            <div class="display mono" style="font-size:48px;md:font-size:56px;line-height:1" id="progressNum">0.0<span style="color:var(--accent);font-size:32px">%</span></div>
             <div class="text-[11px] text-[var(--fg-dim)] mt-1">dari 100% target</div>
           </div>
         </div>
       </div>
       <div class="grid grid-cols-3 gap-2 pt-4 border-t" style="border-color:var(--border)">
         <div class="text-center">
-          <div class="text-[10px] uppercase text-[var(--muted)]">Planned</div>
-          <div class="mono font-bold text-[15px]" id="plannedPercent">52.4%</div>
+          <div class="text-[9px] md:text-[10px] uppercase text-[var(--muted)]">Planned</div>
+          <div class="mono font-bold text-[14px] md:text-[15px]" id="plannedPercent">52.4%</div>
         </div>
         <div class="text-center">
-          <div class="text-[10px] uppercase text-[var(--muted)]">Variance</div>
-          <div class="mono font-bold text-[15px] text-[var(--danger)]" id="variancePercent">-5.1%</div>
+          <div class="text-[9px] md:text-[10px] uppercase text-[var(--muted)]">Variance</div>
+          <div class="mono font-bold text-[14px] md:text-[15px] text-[var(--danger)]" id="variancePercent">-5.1%</div>
         </div>
         <div class="text-center">
-          <div class="text-[10px] uppercase text-[var(--muted)]">SPI</div>
-          <div class="mono font-bold text-[15px] text-[var(--warning)]" id="spiVal">0.90</div>
+          <div class="text-[9px] md:text-[10px] uppercase text-[var(--muted)]">SPI</div>
+          <div class="mono font-bold text-[14px] md:text-[15px] text-[var(--warning)]" id="spiVal">0.90</div>
         </div>
       </div>
     </div>
 
-    <div class="card p-6 xl:col-span-2">
+    <div class="card p-5 md:p-6 xl:col-span-2">
       <div class="flex items-center justify-between mb-4">
         <div class="section-title">Kurva S — Progress Kumulatif</div>
-        <span class="text-[11px] text-[var(--muted)] mono">Periode: Bulanan</span>
+        <span class="text-[10px] md:text-[11px] text-[var(--muted)] mono hidden sm:block">Periode: Bulanan</span>
       </div>
-      <div style="height:280px;position:relative">
+      <div style="height:260px;md:height:280px;position:relative">
         <canvas id="sCurveChart"></canvas>
       </div>
-      <div class="flex flex-wrap items-center gap-4 mt-4 pt-4 border-t" style="border-color:var(--border)">
-        <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm" style="background:#7c8ba1"></span><span class="text-[11px] text-[var(--fg-dim)]">Planned (Baseline)</span></div>
-        <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm" style="background:var(--accent)"></span><span class="text-[11px] text-[var(--fg-dim)]">Actual Progress</span></div>
-        <div class="ml-auto text-[11px] text-[var(--muted)] mono" id="sCurveUpdate">Last update: --</div>
+      <div class="flex flex-wrap items-center gap-3 md:gap-4 mt-4 pt-4 border-t" style="border-color:var(--border)">
+        <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm" style="background:#7c8ba1"></span><span class="text-[10px] md:text-[11px] text-[var(--fg-dim)]">Planned (Baseline)</span></div>
+        <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm" style="background:var(--accent)"></span><span class="text-[10px] md:text-[11px] text-[var(--fg-dim)]">Actual Progress</span></div>
+        <div class="ml-auto text-[10px] md:text-[11px] text-[var(--muted)] mono" id="sCurveUpdate">Last update: --</div>
       </div>
     </div>
   </section>
 
   <!-- =====================================================================
-       BAGIAN 5: PROGRES PEKERJAAN (OTOMATIS DIRENDER DARI JAVASCRIPT)
+       BAGIAN 5: PROGRES PEKERJAAN
        ===================================================================== -->
-  <section class="grid grid-cols-1 xl:grid-cols-5 gap-5 mb-5 reveal">
+  <section class="grid grid-cols-1 xl:grid-cols-5 gap-4 md:gap-5 mb-4 md:mb-5 reveal">
     
-    <div class="card p-6 xl:col-span-3">
+    <div class="card p-5 md:p-6 xl:col-span-3">
       <div class="flex items-center justify-between mb-5">
         <div class="section-title">Progress per Disiplin</div>
-        <div class="text-[11px] text-[var(--muted)] mono">Bobot dalam %</div>
+        <div class="text-[10px] md:text-[11px] text-[var(--muted)] mono">Bobot dalam %</div>
       </div>
 
       <!-- Kontainer ini akan diisi otomatis oleh JS berdasarkan input data -->
       <div class="space-y-4" id="disciplineList"></div>
     </div>
 
-    <div class="card p-6 xl:col-span-2">
+    <div class="card p-5 md:p-6 xl:col-span-2">
       <div class="flex items-center justify-between mb-5">
         <div class="section-title">Milestone Timeline</div>
-        <span class="text-[11px] text-[var(--muted)] mono">6 dari 9</span>
+        <span class="text-[10px] md:text-[11px] text-[var(--muted)] mono">6 dari 9</span>
       </div>
 
       <div class="relative mb-8 mt-8">
@@ -309,75 +316,75 @@
           <div class="ms-dot upcoming" style="left:92%" title="Finishing"></div>
           <div class="ms-dot upcoming" style="left:98%" title="Handover"></div>
         </div>
-        <div class="flex justify-between mt-3 text-[9px] text-[var(--muted)] mono uppercase">
+        <div class="flex justify-between mt-3 text-[8px] md:text-[9px] text-[var(--muted)] mono uppercase">
           <span id="tl1">-</span><span id="tl2">-</span><span id="tl3">-</span><span id="tl4">-</span><span id="tl5">-</span><span id="tl6">-</span><span id="tl7">-</span>
         </div>
       </div>
 
       <div class="space-y-2.5">
         <div class="flex items-center justify-between py-2 px-3 rounded-lg" style="background:rgba(255,107,26,0.06);border:1px solid rgba(255,107,26,0.2)">
-          <div class="flex items-center gap-3">
-            <div class="w-2 h-2 rounded-full" style="background:var(--accent);box-shadow:0 0 8px var(--accent-glow)"></div>
-            <div>
-              <div class="text-[12px] font-semibold">Struktur Lantai 16</div>
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="w-2 h-2 rounded-full flex-shrink-0" style="background:var(--accent);box-shadow:0 0 8px var(--accent-glow)"></div>
+            <div class="min-w-0">
+              <div class="text-[12px] font-semibold truncate">Struktur Lantai 16</div>
               <div class="text-[10px] text-[var(--muted)] mono" id="msL16">Target: -</div>
             </div>
           </div>
-          <span class="pill pill-warning" style="padding:2px 8px;font-size:9px">AKTIF</span>
+          <span class="pill pill-warning flex-shrink-0 ml-2" style="padding:2px 8px;font-size:9px">AKTIF</span>
         </div>
 
         <div class="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-white/[0.02]">
-          <div class="flex items-center gap-3">
-            <div class="w-2 h-2 rounded-full" style="background:var(--steel)"></div>
-            <div>
-              <div class="text-[12px] font-semibold">Struktur Top-Off (L24)</div>
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="w-2 h-2 rounded-full flex-shrink-0" style="background:var(--steel)"></div>
+            <div class="min-w-0">
+              <div class="text-[12px] font-semibold truncate">Struktur Top-Off (L24)</div>
               <div class="text-[10px] text-[var(--muted)] mono" id="msTopOff">Target: -</div>
             </div>
           </div>
-          <span class="text-[10px] mono text-[var(--muted)]" id="msTopOffDays">- hari</span>
+          <span class="text-[10px] mono text-[var(--muted)] flex-shrink-0 ml-2" id="msTopOffDays">- hari</span>
         </div>
 
         <div class="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-white/[0.02]">
-          <div class="flex items-center gap-3">
-            <div class="w-2 h-2 rounded-full" style="background:var(--steel)"></div>
-            <div>
-              <div class="text-[12px] font-semibold">MEP Testing & Commissioning</div>
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="w-2 h-2 rounded-full flex-shrink-0" style="background:var(--steel)"></div>
+            <div class="min-w-0">
+              <div class="text-[12px] font-semibold truncate">MEP Testing & Commissioning</div>
               <div class="text-[10px] text-[var(--muted)] mono" id="msMEP">Target: -</div>
             </div>
           </div>
-          <span class="text-[10px] mono text-[var(--muted)]" id="msMEPDays">- hari</span>
+          <span class="text-[10px] mono text-[var(--muted)] flex-shrink-0 ml-2" id="msMEPDays">- hari</span>
         </div>
 
         <div class="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-white/[0.02]">
-          <div class="flex items-center gap-3">
-            <div class="w-2 h-2 rounded-full" style="background:var(--success)"></div>
-            <div>
-              <div class="text-[12px] font-semibold text-[var(--fg-dim)] line-through">Struktur Lantai 10</div>
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="w-2 h-2 rounded-full flex-shrink-0" style="background:var(--success)"></div>
+            <div class="min-w-0">
+              <div class="text-[12px] font-semibold text-[var(--fg-dim)] line-through truncate">Struktur Lantai 10</div>
               <div class="text-[10px] text-[var(--muted)] mono" id="msL10">Selesai: -</div>
             </div>
           </div>
-          <span class="pill pill-success" style="padding:2px 8px;font-size:9px">DONE</span>
+          <span class="pill pill-success flex-shrink-0 ml-2" style="padding:2px 8px;font-size:9px">DONE</span>
         </div>
       </div>
     </div>
   </section>
 
   <!-- =====================================================================
-       BAGIAN 6: DOKUMENTASI FOTO (UBAH URL GAMBAR DI SINI)
+       BAGIAN 6: DOKUMENTASI FOTO
        ===================================================================== -->
-  <section class="card p-6 mb-5 reveal">
+  <section class="card p-5 md:p-6 mb-4 md:mb-5 reveal">
     <div class="flex items-center justify-between mb-5">
       <div>
         <div class="section-title mb-1">Dokumentasi Lapangan</div>
-        <div class="text-[12px] text-[var(--fg-dim)]" id="photoUpdate">Pembaruan terakhir: -</div>
+        <div class="text-[11px] md:text-[12px] text-[var(--fg-dim)]" id="photoUpdate">Pembaruan terakhir: -</div>
       </div>
-      <button class="px-4 py-2 rounded-lg text-[12px] font-semibold flex items-center gap-2" style="background:var(--accent);color:#1a1300">
+      <button class="px-3 md:px-4 py-2 rounded-lg text-[11px] md:text-[12px] font-semibold flex items-center gap-2 flex-shrink-0" style="background:var(--accent);color:#1a1300">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
-        Upload Dokumentasi
+        Upload
       </button>
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
       <div class="photo-card">
         <img src="https://picsum.photos/seed/construction-tower-1/400/300.jpg" alt="">
         <div class="badge">Lantai 16</div>
@@ -438,7 +445,7 @@
       <span>·</span>
       <span>Powered by PT. Wijaya Konstruksi</span>
     </div>
-    <div class="flex items-center gap-4 text-[11px] text-[var(--muted)]">
+    <div class="flex flex-col md:flex-row items-center gap-2 md:gap-4 text-[11px] text-[var(--muted)]">
       <span>Last sync: <span class="mono text-[var(--fg-dim)]" id="footerSync">-</span></span>
       <span class="flex items-center gap-1.5"><span class="live-dot"></span> All systems operational</span>
     </div>
@@ -452,16 +459,14 @@
 <script>
   // =====================================================================
   // 8.1 INPUT DATA LAPANGAN (UBAH ANGKA DI SINI SECARA MANUAL)
-  // Ubah nilai "progress" (0-100) sesuai kondisi nyata di lapangan.
-  // "bobot" adalah persentase bobot pekerjaan terhadap total proyek.
   // =====================================================================
   const dataDisiplin = [
-    { nama: "Persiapan, Gali dan Urug", bobot: 5, progress: 83, status: "ON-GOING" },
-    { nama: "Pondasi & Struktur Bawah", bobot: 18, progress: 25.45, status: "ON-GOING" },
-    { nama: "Struktur Atas (Beton & Baja) L2", bobot: 20, progress: 0, status: "UPCOMING" },
-    { nama: "Pekerjaan Arsitektur", bobot: 22, progress: 0, status: "UPCOMING" },
-    { nama: "Mechanical, Electrical, Plumbing", bobot: 21, progress: 0, status: "UPCOMING" },
-    { nama: "Finishing", bobot:6, progress: 0, status: "UPCOMING" }
+    { nama: "Pondasi & Struktur Bawah", bobot: 18, progress: 100, status: "SELESAI" },
+    { nama: "Struktur Atas (Beton & Baja)", bobot: 32, progress: 68, status: "ON-GOING" },
+    { nama: "Pekerjaan Arsitektur", bobot: 20, progress: 23, status: "ON-GOING" },
+    { nama: "Mechanical, Electrical, Plumbing", bobot: 22, progress: 31, status: "ON-GOING" },
+    { nama: "Finishing Interior", bobot: 6, progress: 8, status: "UPCOMING" },
+    { nama: "Fasad & Lanskap", bobot: 2, progress: 0, status: "UPCOMING" }
   ];
 
   // ===== 8.2 FUNGSI BANTU TANGGAL & WAKTU =====
@@ -478,8 +483,8 @@
 
   // ===== 8.3 SETINGAN TANGGAL KONTRAK =====
   const today = new Date();
-  const projectStart = new Date(2026, 5, 17); // 17 Juni 2026
-  const projectEnd = new Date(2027, 3, 17);   // 17 April 2027
+  const projectStart = new Date(2026, 5, 17); 
+  const projectEnd = new Date(2027, 3, 17);   
   
   let monthsPassed = (today.getFullYear() - projectStart.getFullYear()) * 12 + (today.getMonth() - projectStart.getMonth());
   let reportDate = today;
@@ -496,11 +501,9 @@
   discList.innerHTML = '';
 
   dataDisiplin.forEach(d => {
-    // Hitung total progres kumulatif (Progress * Bobot)
     totalProgressVal += (d.progress * d.bobot / 100);
     totalBobot += d.bobot;
 
-    // Tentukan warna bar dan pill
     let pillClass = 'pill';
     if(d.status === 'SELESAI') pillClass += ' pill-success';
     else if(d.status === 'ON-GOING') pillClass += ' pill-accent';
@@ -510,17 +513,17 @@
     else if(d.status === 'ON-GOING') barColor = 'var(--accent)';
     else barColor = 'linear-gradient(90deg,#7c8ba1,#5a6678)';
 
-    // Render HTML otomatis untuk list disiplin
+    // Responsif: Sembunyikan pill status di mobile, tampilkan di sm ke atas
     const html = `
       <div>
         <div class="flex items-center justify-between mb-2">
-          <div class="flex items-center gap-3">
-            <span class="text-[13px] font-semibold">${d.nama}</span>
-            <span class="${pillClass}" style="padding:2px 8px;font-size:9px">${d.status}</span>
+          <div class="flex items-center gap-2 md:gap-3 min-w-0 flex-1">
+            <span class="text-[12px] md:text-[13px] font-semibold truncate">${d.nama}</span>
+            <span class="${pillClass} hidden md:inline-flex" style="padding:2px 8px;font-size:9px">${d.status}</span>
           </div>
-          <div class="flex items-center gap-4">
-            <span class="text-[11px] text-[var(--muted)] mono">Bobot ${d.bobot}%</span>
-            <span class="mono font-bold text-[14px] w-12 text-right">${d.progress}%</span>
+          <div class="flex items-center gap-2 md:gap-4 flex-shrink-0 ml-2">
+            <span class="text-[10px] md:text-[11px] text-[var(--muted)] mono hidden sm:inline">Bobot ${d.bobot}%</span>
+            <span class="mono font-bold text-[13px] md:text-[14px] w-10 md:w-12 text-right">${d.progress}%</span>
           </div>
         </div>
         <div class="bar-track"><div class="bar-fill" style="width:${d.progress}%;background:${barColor}"></div></div>
@@ -529,19 +532,14 @@
     discList.innerHTML += html;
   });
 
-  // Hitung nilai akhir progres (0-100)
   const progressVal = +(totalProgressVal / (totalBobot / 100)).toFixed(1);
-  
-  // Hitung Planned (Rencana) berdasarkan waktu
   const plannedVal = +(1 / (1 + Math.exp(-7 * ((monthsPassed / 10) - 0.5))) * 100).toFixed(1);
-  
-  // Hitung Variance dan SPI
   const varianceVal = (progressVal - plannedVal).toFixed(1);
   const spiVal = (progressVal / plannedVal).toFixed(2);
 
   // ===== 8.5 UPDATE UI DASBOR =====
   document.getElementById('contractProgress').textContent = `Bulan Ke-${monthsPassed + 1} / 10`;
-  document.getElementById('endInfo').textContent = `2027 · ${daysLeft > 0 ? daysLeft + ' hari lagi' : 'Selesai'}`;
+  document.getElementById('endInfo').textContent = `${daysLeft > 0 ? daysLeft + ' hari lagi' : 'Selesai'}`;
   document.getElementById('plannedPercent').textContent = plannedVal + '%';
   document.getElementById('variancePercent').textContent = (varianceVal > 0 ? '+' : '') + varianceVal + '%';
   document.getElementById('variancePercent').style.color = varianceVal < 0 ? 'var(--danger)' : 'var(--success)';
@@ -577,14 +575,13 @@
     if(el) el.textContent = `${monthNamesShort[d.getMonth()]} ${String(d.getFullYear()).substring(2)}`;
   });
 
-  // Bar milestone diubah untuk merepresentasikan progress manual, bukan waktu
   document.getElementById('msProgressBar').style.width = progressVal + '%';
 
   // ===== 8.8 ANIMASI RING PROGRES =====
   function animateRing() {
     const ring = document.getElementById('progressRing');
     const num = document.getElementById('progressNum');
-    const target = progressVal; // Pakai angka dari kalkulasi data lapangan
+    const target = progressVal;
     const circumference = 578;
     const duration = 1800;
     const start = performance.now();
@@ -602,7 +599,7 @@
   }
   setTimeout(animateRing, 300);
 
-  // ===== 8.9 GRAFIK KURVA S (MENGGABUNGKAN MANUAL & OTOMATIS) =====
+  // ===== 8.9 GRAFIK KURVA S =====
   const ctx = document.getElementById('sCurveChart').getContext('2d');
   const monthLabels = [];
   for(let i = 0; i <= 10; i++) {
@@ -616,13 +613,12 @@
     return +(1 / (1 + Math.exp(-7 * (x - 0.5))) * 100).toFixed(1);
   });
 
-  // Data Actual: Bulan-bulan sebelumnya memakai simulasi, bulan terkini memakai input manual
   const actual = monthLabels.map((_, i) => {
     if(i > monthsPassed) return null;
-    if(i === monthsPassed) return progressVal; // Input manual dari lapangan
+    if(i === monthsPassed) return progressVal;
     const x = i / (totalMonths - 1);
     const base = 1 / (1 + Math.exp(-7 * (x - 0.5))) * 100;
-    return +(base * 0.92).toFixed(1); // Data bulan lalu
+    return +(base * 0.92).toFixed(1);
   });
   
   new Chart(ctx, {
@@ -646,7 +642,7 @@
         }
       },
       scales: {
-        x: { grid: { color: 'rgba(255,255,255,0.03)' }, ticks: { color: '#6b7382', font: { family: 'JetBrains Mono', size: 10 }, maxRotation: 0, autoSkip: true, maxTicksLimit: 12 } },
+        x: { grid: { color: 'rgba(255,255,255,0.03)' }, ticks: { color: '#6b7382', font: { family: 'JetBrains Mono', size: 10 }, maxRotation: 0, autoSkip: true, maxTicksLimit: 6 } },
         y: { min: 0, max: 100, grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#6b7382', font: { family: 'JetBrains Mono', size: 10 }, callback: v => v + '%' } }
       }
     }
