@@ -680,6 +680,14 @@
     const base = 1 / (1 + Math.exp(-7 * (x - 0.5))) * 100;
     return +(base * 0.92).toFixed(1);
   });
+
+// ===== PERBAIKAN POSISI REFRESH: SELALU MULAI DARI ATAS =====
+  if (history.scrollRestoration) {
+    history.scrollRestoration = 'manual';
+  } else {
+    window.onbeforeunload = function () { window.scrollTo(0, 0); };
+  }
+  window.scrollTo(0, 0);
   
   // Konfigurasi Chart
   new Chart(ctx, {
