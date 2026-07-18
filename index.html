@@ -230,7 +230,7 @@
     <div class="grid grid-cols-3 gap-2 md:gap-3 w-full xl:w-auto xl:min-w-[440px]">
       <div class="card p-3 md:p-4 flex flex-col justify-center">
         <div class="text-[9px] md:text-[10px] uppercase tracking-widest text-[var(--muted)] mb-1">Pekerja</div>
-        <div class="mono text-[16px] md:text-[18px] font-bold">8<span style="color:var(--accent)">Orang</span></div>
+        <div class="mono text-[16px] md:text-[18px] font-bold">8 <span style="color:var(--accent)">Orang</span></div>
       </div>
       <div class="card p-3 md:p-4 flex flex-col justify-center">
         <div class="text-[9px] md:text-[10px] uppercase tracking-widest text-[var(--muted)] mb-1">Mulai</div>
@@ -375,7 +375,7 @@
           <div class="flex items-center gap-3 min-w-0">
             <div class="w-2 h-2 rounded-full flex-shrink-0" style="background:var(--accent);box-shadow:0 0 8px var(--accent-glow)"></div>
             <div class="min-w-0">
-              <div class="text-[12px] font-semibold truncate">Struktur Lantai 16</div>
+              <div class="text-[12px] font-semibold truncate">Pondasi & Struktur Bawah</div>
               <div class="text-[10px] text-[var(--muted)] mono" id="msL16">Target: -</div>
             </div>
           </div>
@@ -386,7 +386,7 @@
           <div class="flex items-center gap-3 min-w-0">
             <div class="w-2 h-2 rounded-full flex-shrink-0" style="background:var(--steel)"></div>
             <div class="min-w-0">
-              <div class="text-[12px] font-semibold truncate">Struktur Top-Off (L24)</div>
+              <div class="text-[12px] font-semibold truncate">Struktur Top-Off (L2)</div>
               <div class="text-[10px] text-[var(--muted)] mono" id="msTopOff">Target: -</div>
             </div>
           </div>
@@ -408,7 +408,7 @@
           <div class="flex items-center gap-3 min-w-0">
             <div class="w-2 h-2 rounded-full flex-shrink-0" style="background:var(--success)"></div>
             <div class="min-w-0">
-              <div class="text-[12px] font-semibold text-[var(--fg-dim)] line-through truncate">Struktur Lantai 10</div>
+              <div class="text-[12px] font-semibold text-[var(--fg-dim)] line-through truncate">Persiapan, Bongkaran, Galian & Urug</div>
               <div class="text-[10px] text-[var(--muted)] mono" id="msL10">Selesai: -</div>
             </div>
           </div>
@@ -510,12 +510,12 @@
   // 8.1 INPUT DATA LAPANGAN (UBAH ANGKA DI SINI SECARA MANUAL)
   // =====================================================================
   const dataDisiplin = [
-    { nama: "Pondasi & Struktur Bawah", bobot: 18, progress: 100, status: "SELESAI" },
-    { nama: "Struktur Atas (Beton & Baja)", bobot: 32, progress: 68, status: "ON-GOING" },
-    { nama: "Pekerjaan Arsitektur", bobot: 20, progress: 23, status: "ON-GOING" },
-    { nama: "Mechanical, Electrical, Plumbing", bobot: 22, progress: 31, status: "ON-GOING" },
-    { nama: "Finishing Interior", bobot: 6, progress: 8, status: "UPCOMING" },
-    { nama: "Fasad & Lanskap", bobot: 2, progress: 0, status: "UPCOMING" }
+    { nama: "Persiapan, Bongkaran, Galian dan Urug", bobot: 5, progress: 77.22, status: "ON-GOING" },
+    { nama: "Pondasi & Struktur Bawah)", bobot: 18.07, progress: 25.42, status: "ON-GOING" },
+    { nama: "Struktur Atas (L2)", bobot: 13.16, progress: 0, status: "UPCOMING" },
+    { nama: "Pekerjaan Arsitektur", bobot: 39.50, progress: 0, status: "UPCOMING" },
+    { nama: "MEP (Mechanical, Electrical, Plumbing)", bobot: 19.90, progress: 2.99, status: "ON-GOING" },
+    { nama: "Finishing", bobot: 4.38, progress: 0, status: "UPCOMING" }
   ];
 
   // ===== 8.2 FUNGSI BANTU TANGGAL & WAKTU =====
