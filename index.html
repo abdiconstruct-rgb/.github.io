@@ -139,6 +139,28 @@
     height:6px;
   }
 
+  /* CSS untuk Tooltip / Comment Box */
+  .info-wrap { position: relative; display: inline-flex; align-items: center; gap: 4px; }
+  .info-btn {
+    width: 14px; height: 14px; border-radius: 50%; border: 1px solid var(--border-bright);
+    background: var(--surface-3); color: var(--muted); font-size: 9px; font-weight: bold;
+    display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s;
+  }
+  .info-btn:hover, .info-btn:focus { background: var(--accent); color: #1a1300; border-color: var(--accent); outline: none; }
+  .info-box {
+    position: absolute; bottom: 125%; left: 50%; transform: translateX(-50%);
+    background: var(--surface-3); border: 1px solid var(--border-bright);
+    color: var(--fg-dim); padding: 10px 12px; border-radius: 8px; font-size: 10px; line-height: 1.5;
+    width: 180px; text-align: left; z-index: 20; opacity: 0; visibility: hidden; transition: all 0.2s;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-transform: none; font-weight: normal; letter-spacing: 0;
+    pointer-events: none;
+  }
+  .info-box::after {
+    content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+    border: 6px solid transparent; border-top-color: var(--border-bright);
+  }
+  .info-wrap:hover .info-box, .info-wrap:focus-within .info-box { opacity: 1; visibility: visible; bottom: 135%; }
+
   /* Responsive Typography & Sizing */
   @media (max-width:768px){
     .display-xl{font-size:40px !important;line-height:1 !important}
@@ -152,7 +174,7 @@
 <body>
 
 <!-- =====================================================================
-     BAGIAN 2: HEADER ATAS (TIDAK PERLU DIUBAH MANUAL)
+     BAGIAN 2: HEADER ATAS
      ===================================================================== -->
 <header class="header-glow sticky top-0 z-50 layer">
   <div class="max-w-[1600px] mx-auto px-4 md:px-6 py-3 flex items-center justify-between gap-4">
@@ -162,17 +184,17 @@
       </div>
       <div>
         <div class="flex items-center gap-2">
-          <span class="text-[13px] font-bold tracking-wide">PROBUILD DASH</span>
+          <span class="text-[13px] font-bold tracking-wide">ABDI CONSTRUCTION</span>
         </div>
-        <div class="text-[9px] md:text-[10px] text-[var(--muted)] mono uppercase tracking-widest hidden sm:block">Construction Control Center</div>
+        <div class="text-[9px] md:text-[10px] text-[var(--muted)] mono uppercase tracking-widest hidden sm:block">Construction Progress Center</div>
       </div>
     </div>
 
     <div class="hidden lg:flex items-center gap-3 px-4 py-2 rounded-lg" style="background:var(--surface-2);border:1px solid var(--border)">
       <div class="w-2 h-2 rounded-full" style="background:var(--accent)"></div>
       <div>
-        <div class="text-[13px] font-semibold">Tower Sentral Graha</div>
-        <div class="text-[10px] text-[var(--muted)] mono">PROJ-ID: TSG-2026-018</div>
+        <div class="text-[13px] font-semibold">INDEPENDENCE Co-Living Space</div>
+        <div class="text-[10px] text-[var(--muted)] mono">PROJ-ID: 077/SPK-BLD/VI/2026</div>
       </div>
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-[var(--muted)]"><path d="M6 9l6 6 6-6"/></svg>
     </div>
@@ -202,13 +224,13 @@
         <span class="pill" id="contractProgress">Bulan Ke-6 / 10</span>
         <span class="pill">Kontrak: 10 Bulan</span>
       </div>
-      <h1 class="display display-xl text-[40px] sm:text-[56px] xl:text-[64px]" style="line-height:0.95">Tower Sentral<br>Graha<span style="color:var(--accent)">.</span></h1>
-      <p class="text-[var(--fg-dim)] mt-3 text-[13px] md:text-[14px] max-w-xl">Pembangunan gedung perkantoran 24 lantai dengan luas total 42,800 m². Lokasi: SCBD Lot 14, Jakarta Selatan.</p>
+      <h1 class="display display-xl text-[40px] sm:text-[56px] xl:text-[64px]" style="line-height:0.95">INDEPENDENCE<br>Co-Living <span style="color:var(--accent)">Space.</span></h1>
+      <p class="text-[var(--fg-dim)] mt-3 text-[13px] md:text-[14px] max-w-xl">Pembangunan rumah KOS 2 lantai. Jl. Lincar II No.17, Tegal Gundil, Kota Bogor, Jawa Barat 16152.</p>
     </div>
     <div class="grid grid-cols-3 gap-2 md:gap-3 w-full xl:w-auto xl:min-w-[440px]">
       <div class="card p-3 md:p-4 flex flex-col justify-center">
-        <div class="text-[9px] md:text-[10px] uppercase tracking-widest text-[var(--muted)] mb-1">Nilai Kontrak</div>
-        <div class="mono text-[16px] md:text-[18px] font-bold">Rp 285<span style="color:var(--accent)">M</span></div>
+        <div class="text-[9px] md:text-[10px] uppercase tracking-widest text-[var(--muted)] mb-1">Pekerja</div>
+        <div class="mono text-[16px] md:text-[18px] font-bold">8<span style="color:var(--accent)">Orang</span></div>
       </div>
       <div class="card p-3 md:p-4 flex flex-col justify-center">
         <div class="text-[9px] md:text-[10px] uppercase tracking-widest text-[var(--muted)] mb-1">Mulai</div>
@@ -250,19 +272,46 @@
           </div>
         </div>
       </div>
+      
+      <!-- BAGIAN DENGAN TOOLTIP QUESTION MARK -->
       <div class="grid grid-cols-3 gap-2 pt-4 border-t" style="border-color:var(--border)">
+        
+        <!-- Planned -->
         <div class="text-center">
-          <div class="text-[9px] md:text-[10px] uppercase text-[var(--muted)]">Planned</div>
+          <div class="info-wrap text-[9px] md:text-[10px] uppercase text-[var(--muted)]">
+            <span>Planned</span>
+            <button class="info-btn" tabindex="0">?</button>
+            <div class="info-box">
+              <b>Planned (Rencana)</b><br>Persentase progres yang seharusnya sudah tercapai pada minggu/bulan ini berdasarkan jadwal baseline proyek.
+            </div>
+          </div>
           <div class="mono font-bold text-[14px] md:text-[15px]" id="plannedPercent">52.4%</div>
         </div>
+        
+        <!-- Variance -->
         <div class="text-center">
-          <div class="text-[9px] md:text-[10px] uppercase text-[var(--muted)]">Variance</div>
+          <div class="info-wrap text-[9px] md:text-[10px] uppercase text-[var(--muted)]">
+            <span>Variance</span>
+            <button class="info-btn" tabindex="0">?</button>
+            <div class="info-box">
+              <b>Variance (Selisih)</b><br>Selisih antara progres aktual dan rencana. Nilai minus (-) berarti pekerjaan tertinggal dari jadwal.
+            </div>
+          </div>
           <div class="mono font-bold text-[14px] md:text-[15px] text-[var(--danger)]" id="variancePercent">-5.1%</div>
         </div>
+        
+        <!-- SPI -->
         <div class="text-center">
-          <div class="text-[9px] md:text-[10px] uppercase text-[var(--muted)]">SPI</div>
+          <div class="info-wrap text-[9px] md:text-[10px] uppercase text-[var(--muted)]">
+            <span>SPI</span>
+            <button class="info-btn" tabindex="0">?</button>
+            <div class="info-box">
+              <b>Schedule Performance Index</b><br>Rasio efisiensi waktu (Actual dibagi Planned). Jika angka < 1 berarti terlambat, > 1 berarti lebih cepat.
+            </div>
+          </div>
           <div class="mono font-bold text-[14px] md:text-[15px] text-[var(--warning)]" id="spiVal">0.90</div>
         </div>
+        
       </div>
     </div>
 
@@ -300,7 +349,7 @@
     <div class="card p-5 md:p-6 xl:col-span-2">
       <div class="flex items-center justify-between mb-5">
         <div class="section-title">Milestone Timeline</div>
-        <span class="text-[10px] md:text-[11px] text-[var(--muted)] mono">6 dari 9</span>
+        <span class="text-[10px] md:text-[11px] text-[var(--muted)] mono">2 dari 9</span>
       </div>
 
       <div class="relative mb-8 mt-8">
@@ -513,7 +562,6 @@
     else if(d.status === 'ON-GOING') barColor = 'var(--accent)';
     else barColor = 'linear-gradient(90deg,#7c8ba1,#5a6678)';
 
-    // Responsif: Sembunyikan pill status di mobile, tampilkan di sm ke atas
     const html = `
       <div>
         <div class="flex items-center justify-between mb-2">
@@ -533,7 +581,8 @@
   });
 
   const progressVal = +(totalProgressVal / (totalBobot / 100)).toFixed(1);
-  const plannedVal = +(1 / (1 + Math.exp(-7 * ((monthsPassed / 10) - 0.5))) * 100).toFixed(1);
+  let plannedVal = +(1 / (1 + Math.exp(-7 * ((monthsPassed / 10) - 0.5))) * 100).toFixed(1);
+  if (monthsPassed >= 10) plannedVal = 100.0; // Paksa 100% di akhir kontrak
   const varianceVal = (progressVal - plannedVal).toFixed(1);
   const spiVal = (progressVal / plannedVal).toFixed(2);
 
@@ -608,11 +657,15 @@
   }
   const totalMonths = monthLabels.length; 
 
+  // Data Rencana (Planned)
   const planned = monthLabels.map((_, i) => {
+    // Paksa nilai 100% di bulan terakhir (akhir periode April 27)
+    if (i === totalMonths - 1) return 100.0; 
     const x = i / (totalMonths - 1);
     return +(1 / (1 + Math.exp(-7 * (x - 0.5))) * 100).toFixed(1);
   });
 
+  // Data Realisasi (Actual)
   const actual = monthLabels.map((_, i) => {
     if(i > monthsPassed) return null;
     if(i === monthsPassed) return progressVal;
@@ -621,6 +674,7 @@
     return +(base * 0.92).toFixed(1);
   });
   
+  // Konfigurasi Chart
   new Chart(ctx, {
     type: 'line',
     data: {
