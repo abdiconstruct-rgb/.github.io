@@ -161,6 +161,102 @@
   }
   .info-wrap:hover .info-box, .info-wrap:focus-within .info-box { opacity: 1; visibility: visible; bottom: 135%; }
 
+  /* =====================================================================
+     CSS POPUP TAGIHAN TERMIN
+     ===================================================================== */
+  .popup-overlay{
+    position:fixed;inset:0;z-index:9999;
+    background:rgba(0,0,0,0.75);backdrop-filter:blur(12px);
+    display:flex;align-items:center;justify-content:center;
+    opacity:0;visibility:hidden;
+    transition:opacity 0.4s ease, visibility 0.4s ease;
+  }
+  .popup-overlay.active{opacity:1;visibility:visible}
+
+  .popup-modal{
+    width:94%;max-width:640px;max-height:88vh;
+    background:linear-gradient(180deg,rgba(30,36,46,0.98),rgba(17,21,27,0.98));
+    border:1px solid var(--border-bright);border-radius:18px;
+    backdrop-filter:blur(20px);
+    position:relative;overflow:hidden;
+    transform:translateY(30px) scale(0.96);opacity:0;
+    transition:transform 0.45s cubic-bezier(0.16,1,0.3,1), opacity 0.4s ease;
+    box-shadow:0 30px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,107,26,0.08);
+  }
+  .popup-overlay.active .popup-modal{
+    transform:translateY(0) scale(1);opacity:1;
+  }
+
+  .popup-modal::before{
+    content:"";position:absolute;left:0;top:0;right:0;height:1px;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent);
+  }
+
+  .popup-stripe{
+    height:5px;
+    background:repeating-linear-gradient(45deg, var(--accent), var(--accent) 8px, #1a1300 8px, #1a1300 16px);
+  }
+
+  .popup-close{
+    position:absolute;top:14px;right:14px;z-index:10;
+    width:34px;height:34px;border-radius:10px;border:1px solid var(--border-bright);
+    background:var(--surface-2);color:var(--fg-dim);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+    transition:all 0.25s ease;font-size:18px;line-height:1;
+  }
+  .popup-close:hover{background:var(--danger);color:#fff;border-color:var(--danger);transform:scale(1.08)}
+  .popup-close:focus{outline:2px solid var(--accent);outline-offset:2px}
+
+  .popup-body{padding:24px 28px 28px;overflow-y:auto;max-height:calc(88vh - 5px)}
+
+  .termin-table{width:100%;border-collapse:separate;border-spacing:0;font-size:12px}
+  .termin-table thead th{
+    text-align:left;padding:10px 12px;font-size:10px;font-weight:700;
+    text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);
+    border-bottom:1px solid var(--border-bright);background:var(--surface-2);
+    position:sticky;top:0;z-index:2;
+  }
+  .termin-table thead th:first-child{border-radius:8px 0 0 0}
+  .termin-table thead th:last-child{border-radius:0 8px 0 0}
+  .termin-table tbody td{
+    padding:10px 12px;border-bottom:1px solid var(--border);
+    color:var(--fg-dim);vertical-align:middle;
+  }
+  .termin-table tbody tr{transition:background 0.2s ease}
+  .termin-table tbody tr:hover{background:rgba(255,255,255,0.02)}
+  .termin-table tbody tr:last-child td{border-bottom:none}
+  .termin-table .col-nominal{text-align:right;font-family:'JetBrains Mono',monospace;font-weight:500}
+  .termin-table .col-pct{text-align:center;font-family:'JetBrains Mono',monospace;font-weight:600}
+
+  .termin-badge{
+    display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:6px;
+    font-size:9px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;
+  }
+  .termin-badge.lunas{background:rgba(95,208,126,0.12);color:var(--success);border:1px solid rgba(95,208,126,0.25)}
+  .termin-badge.jatuh-tempo{background:rgba(255,181,71,0.12);color:var(--warning);border:1px solid rgba(255,181,71,0.25)}
+  .termin-badge.belum{background:rgba(107,115,130,0.1);color:var(--muted);border:1px solid var(--border)}
+
+  .termin-progress-track{
+    height:6px;border-radius:4px;background:rgba(255,255,255,0.06);overflow:hidden;margin-top:4px;
+  }
+  .termin-progress-fill{
+    height:100%;border-radius:4px;background:linear-gradient(90deg,var(--accent),var(--hi-vis));
+    transition:width 1s cubic-bezier(.2,.8,.2,1);
+  }
+
+  .popup-footer{
+    margin-top:20px;padding-top:16px;border-top:1px solid var(--border);
+    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;
+  }
+
+  @media(max-width:600px){
+    .popup-body{padding:18px 16px 22px}
+    .termin-table{font-size:10px}
+    .termin-table thead th{padding:8px 6px;font-size:8px}
+    .termin-table tbody td{padding:8px 6px}
+    .popup-modal{border-radius:14px}
+  }
+
   /* Responsive Typography & Sizing */
   @media (max-width:768px){
     .display-xl{font-size:40px !important;line-height:1 !important}
@@ -172,6 +268,87 @@
 </head>
 
 <body>
+
+<!-- =====================================================================
+     POPUP TAGIHAN TERMIN
+     ===================================================================== -->
+<div class="popup-overlay" id="terminPopup" role="dialog" aria-modal="true" aria-label="Tagihan Termin Proyek">
+
+  <div class="popup-modal">
+    <div class="popup-stripe"></div>
+
+    <!-- Tombol Close -->
+    <button class="popup-close" id="popupCloseBtn" aria-label="Tutup popup">&times;</button>
+
+    <div class="popup-body">
+      <!-- Header Popup -->
+      <div style="margin-bottom:20px">
+        <div class="flex items-center gap-2 mb-1">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+          <span class="text-[10px] uppercase tracking-widest font-bold" style="color:var(--accent)">Invoice Schedule</span>
+        </div>
+        <h2 class="display text-[22px] sm:text-[26px]" style="line-height:1.1">Tagihan <span style="color:var(--accent)">Termin</span></h2>
+        <p class="text-[12px] mt-1" style="color:var(--fg-dim)">INDEPENDENCE Co-Living Space — PROJ-077/SPK-BLD/VI/2026</p>
+      </div>
+
+      <!-- Ringkasan -->
+      <div class="grid grid-cols-3 gap-3 mb-5">
+        <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center">
+          <div class="text-[9px] uppercase tracking-widest font-bold" style="color:var(--muted)">Nilai Kontrak</div>
+          <div class="mono text-[14px] sm:text-[16px] font-bold mt-1" style="color:var(--hi-vis)">1.450.000.000</div>
+        </div>
+        <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center">
+          <div class="text-[9px] uppercase tracking-widest font-bold" style="color:var(--muted)">Termin Dibayar</div>
+          <div class="mono text-[14px] sm:text-[16px] font-bold mt-1" style="color:var(--success)">290.000.000</div>
+        </div>
+        <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center">
+          <div class="text-[9px] uppercase tracking-widest font-bold" style="color:var(--muted)">Sisa Tagihan</div>
+          <div class="mono text-[14px] sm:text-[16px] font-bold mt-1" style="color:var(--danger)">1.160.000.000</div>
+        </div>
+      </div>
+
+      <!-- Progress Pembayaran -->
+      <div class="mb-5">
+        <div class="flex items-center justify-between mb-1">
+          <span class="text-[10px] uppercase tracking-widest font-bold" style="color:var(--muted)">Progress Pembayaran</span>
+          <span class="mono text-[12px] font-bold" style="color:var(--accent)" id="terminPctText">20%</span>
+        </div>
+        <div class="termin-progress-track">
+          <div class="termin-progress-fill" id="terminProgressFill" style="width:0%"></div>
+        </div>
+      </div>
+
+      <!-- Tabel Termin -->
+      <div style="border:1px solid var(--border);border-radius:10px;overflow:hidden">
+        <table class="termin-table">
+          <thead>
+            <tr>
+              <th>Termin</th>
+              <th>Keterangan</th>
+              <th class="col-pct">%</th>
+              <th class="col-nominal">Nominal</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="terminTableBody">
+            <!-- Diisi oleh JavaScript -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Footer Popup -->
+      <div class="popup-footer">
+        <div class="text-[10px]" style="color:var(--muted)">
+          <span class="mono">Tanggal referensi: <span id="terminRefDate">-</span></span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="live-dot" style="width:6px;height:6px"></span>
+          <span class="text-[10px] mono" style="color:var(--fg-dim)">Data realtime</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- =====================================================================
      BAGIAN 2: HEADER ATAS
@@ -205,6 +382,7 @@
         <span class="text-[11px] mono text-[var(--fg-dim)]">LIVE</span>
         <span class="text-[11px] mono text-[var(--muted)]">·</span>
         <span class="text-[11px] mono" id="liveClock">--:--:--</span>
+        <span class="text-[10px] mono text-[var(--accent)]" style="font-weight:700">WIB</span>
       </div>
          <a href="https://docs.google.com/spreadsheets/d/119fpSfex4x3vyISvYN-HCs45KvnJz334/edit?usp=sharing&ouid=115632378833006552819&rtpof=true&sd=true">
       <div class="px-3 md:px-4 py-2 rounded-lg flex items-center justify-center font-bold text-[11px] md:text-[12px]" style="background:linear-gradient(135deg,#3a4452,#1e242e);border:1px solid var(--border-bright)">Excel File</div></a>
@@ -222,7 +400,7 @@
     <div>
       <div class="flex flex-wrap items-center gap-2 mb-3">
         <span class="pill pill-success"><span class="live-dot"></span> On Track</span>
-        <span class="pill" id="contractProgress">Bulan Ke-6 / 10</span>
+        <span class="pill" id="contractProgress">Bulan Ke-6 / 8</span>
         <span class="pill">Kontrak: 10 Bulan</span>
       </div>
       <h1 class="display display-xl text-[40px] sm:text-[56px] xl:text-[64px]" style="line-height:0.95">INDEPENDENCE<br>Co-Living <span style="color:var(--accent)">Space.</span></h1>
@@ -232,7 +410,7 @@
       <div class="card p-3 md:p-4 flex flex-col justify-center">
         <div class="text-[9px] md:text-[10px] uppercase tracking-widest text-[var(--muted)] mb-1">Pekerja</div>
         <div class="mono text-[16px] md:text-[18px] font-bold">8 <span style="color:var(--accent)">Orang</span></div>
-        <div class="text-[10px] text-[var(--muted)] mt-1">Tetap</div>
+        <div class="text-[10px] text-[var(--muted)] mt-1">Aktif</div>
       </div>
       <div class="card p-3 md:p-4 flex flex-col justify-center">
         <div class="text-[9px] md:text-[10px] uppercase tracking-widest text-[var(--muted)] mb-1">Mulai</div>
@@ -241,7 +419,7 @@
       </div>
       <div class="card p-3 md:p-4 flex flex-col justify-center">
         <div class="text-[9px] md:text-[10px] uppercase tracking-widest text-[var(--muted)] mb-1">Selesai</div>
-        <div class="mono text-[16px] md:text-[18px] font-bold">17 Apr</div>
+        <div class="mono text-[16px] md:text-[18px] font-bold">17 Feb</div>
         <div class="text-[10px] text-[var(--warning)] mt-1" id="endInfo">2027 · 0 hari lagi</div>
       </div>
     </div>
@@ -270,15 +448,12 @@
           <div class="absolute inset-0 flex flex-col items-center justify-center">
             <div class="text-[10px] md:text-[11px] uppercase tracking-widest text-[var(--muted)]">Terselesaikan</div>
             <div class="display mono" style="font-size:48px;md:font-size:56px;line-height:1" id="progressNum">0.0<span style="color:var(--accent);font-size:32px">%</span></div>
-            <div class="text-[11px] text-[var(--fg-dim)] mt-1">dari 100% target</div>
+            <div class="text-[11px] text-[var(--fg-dim)] mt-1">Dari 100% Target</div>
           </div>
         </div>
       </div>
       
-      <!-- BAGIAN DENGAN TOOLTIP QUESTION MARK -->
       <div class="grid grid-cols-3 gap-2 pt-4 border-t" style="border-color:var(--border)">
-        
-        <!-- Planned -->
         <div class="text-center">
           <div class="info-wrap text-[9px] md:text-[10px] uppercase text-[var(--muted)]">
             <span>Planned</span>
@@ -289,8 +464,6 @@
           </div>
           <div class="mono font-bold text-[14px] md:text-[15px]" id="plannedPercent">52.4%</div>
         </div>
-        
-        <!-- Variance -->
         <div class="text-center">
           <div class="info-wrap text-[9px] md:text-[10px] uppercase text-[var(--muted)]">
             <span>Variance</span>
@@ -301,8 +474,6 @@
           </div>
           <div class="mono font-bold text-[14px] md:text-[15px] text-[var(--danger)]" id="variancePercent">-5.1%</div>
         </div>
-        
-        <!-- SPI -->
         <div class="text-center">
           <div class="info-wrap text-[9px] md:text-[10px] uppercase text-[var(--muted)]">
             <span>SPI</span>
@@ -313,7 +484,6 @@
           </div>
           <div class="mono font-bold text-[14px] md:text-[15px] text-[var(--warning)]" id="spiVal">0.90</div>
         </div>
-        
       </div>
     </div>
 
@@ -343,8 +513,6 @@
         <div class="section-title">Progress per Disiplin</div>
         <div class="text-[10px] md:text-[11px] text-[var(--muted)] mono">Bobot dalam %</div>
       </div>
-
-      <!-- Kontainer ini akan diisi otomatis oleh JS berdasarkan input data -->
       <div class="space-y-4" id="disciplineList"></div>
     </div>
 
@@ -359,9 +527,9 @@
           <div class="ms-progress" id="msProgressBar" style="width:52%"></div>
           <div class="ms-dot done" style="left:5%" title="Mobilisasi"></div>
           <div class="ms-dot done" style="left:15%" title="Pondasi Selesai"></div>
-          <div class="ms-dot done" style="left:28%" title="Basement"></div>
-          <div class="ms-dot done" style="left:40%" title="Struktur L10"></div>
-          <div class="ms-dot active" style="left:52%" title="Struktur L16"></div>
+          <div class="ms-dot active" style="left:28%" title="Basement"></div>
+          <div class="ms-dot upcoming" style="left:40%" title="Struktur L10"></div>
+          <div class="ms-dot upcoming" style="left:52%" title="Struktur L16"></div>
           <div class="ms-dot upcoming" style="left:68%" title="Top-Off"></div>
           <div class="ms-dot upcoming" style="left:82%" title="MEP Testing"></div>
           <div class="ms-dot upcoming" style="left:92%" title="Finishing"></div>
@@ -374,16 +542,14 @@
 
       <div class="space-y-2.5">
            
-           <div class="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-white/[0.02]">
+        <div class="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-white/[0.02]">
           <div class="flex items-center gap-3 min-w-0">
             <div class="w-2 h-2 rounded-full flex-shrink-0" style="background:var(--success)"></div>
             <div class="min-w-0">
-              <!-- <div class="text-[12px] font-semibold text-[var(--fg-dim)] line-through truncate"> --> 
-                   <div class="text-[12px] font-semibold truncate">Persiapan, Bongkaran, Galian & Urug</div>
+              <div class="text-[12px] font-semibold truncate">Persiapan, Bongkaran, Galian & Urug</div>
               <div class="text-[10px] text-[var(--muted)] mono" id="msL10">Target: -</div>
             </div>
           </div>
-          <!--- <span class="pill pill-success flex-shrink-0 ml-2" style="padding:2px 8px;font-size:9px">AKTIF</span> -->
           <span class="pill pill-warning flex-shrink-0 ml-2" style="padding:2px 8px;font-size:9px">AKTIF</span>
         </div>
            
@@ -419,7 +585,6 @@
           </div>
           <span class="text-[10px] mono text-[var(--muted)] flex-shrink-0 ml-2" id="msMEPDays">- hari</span>
         </div>
-
         
       </div>
     </div>
@@ -434,10 +599,6 @@
         <div class="section-title mb-1">Dokumentasi Lapangan</div>
         <div class="text-[11px] md:text-[12px] text-[var(--fg-dim)]" id="photoUpdate">Pembaruan terakhir: -</div>
       </div>
-      <button class="px-3 md:px-4 py-2 rounded-lg text-[11px] md:text-[12px] font-semibold flex items-center gap-2 flex-shrink-0" style="background:var(--accent);color:#1a1300">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
-        Upload
-      </button>
     </div>
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
       <div class="photo-card">
@@ -519,18 +680,34 @@
      ===================================================================== -->
 <script>
   // =====================================================================
-  // 8.1 INPUT DATA LAPANGAN (UBAH ANGKA DI SINI SECARA MANUAL)
+  // 8.1 INPUT DATA LAPANGAN
   // =====================================================================
   const dataDisiplin = [
-    { nama: "Persiapan, Bongkaran, Galian dan Urug", bobot: 5, progress: 77.22, status: "ON-GOING" },
-    { nama: "Pondasi & Struktur (Bawah)", bobot: 18.07, progress: 25.42, status: "ON-GOING" },
-    { nama: "Struktur Atas (L2)", bobot: 13.16, progress: 0, status: "UPCOMING" },
-    { nama: "Pekerjaan Arsitektur", bobot: 39.50, progress: 0, status: "UPCOMING" },
+    { nama: "Persiapan, Bongkaran, Galian dan Urug", bobot: 5.00, progress: 97.22, status: "ON-GOING" },
+    { nama: "Pondasi & Struktur (Bawah)", bobot: 18.07, progress: 25.84, status: "ON-GOING" },
+    { nama: "Struktur Atas (L2)", bobot: 13.16, progress: 0.00, status: "UPCOMING" },
+    { nama: "Pekerjaan Arsitektur", bobot: 39.50, progress: 0.00, status: "UPCOMING" },
     { nama: "MEP (Mechanical, Electrical, Plumbing)", bobot: 19.90, progress: 2.99, status: "ON-GOING" },
-    { nama: "Finishing", bobot: 4.38, progress: 0, status: "UPCOMING" }
+    { nama: "Finishing", bobot: 4.38, progress: 0.00, status: "UPCOMING" },
   ];
 
-  // ===== 8.2 FUNGSI BANTU TANGGAL & WAKTU =====
+  // =====================================================================
+  // 8.2 DATA TAGIHAN TERMIN
+  // =====================================================================
+  const nilaiKontrak = 1450000000;
+
+  const dataTermin = [
+    { no: 1, nama: "Uang Muka (Down Payment)", pct: 20, nominal: 290000000, status: "lunas", tanggal: "17 Jun 2026" },
+    { no: 2, nama: "Termin I — Pondasi & Struktur Bawah", pct: 15, nominal: 217500000, status: "jatuh-tempo", tanggal: "17 Agu 2026" },
+    { no: 3, nama: "Termin II — Struktur Atas (L2)", pct: 15, nominal: 217500000, status: "belum", tanggal: "17 Okt 2026" },
+    { no: 4, nama: "Termin III — Arsitektur & MEP", pct: 20, nominal: 290000000, status: "belum", tanggal: "17 Des 2026" },
+    { no: 5, nama: "Termin IV — Finishing", pct: 15, nominal: 217500000, status: "belum", tanggal: "17 Jan 2027" },
+    { no: 6, nama: "Retensi / Serah Terima", pct: 15, nominal: 217500000, status: "belum", tanggal: "17 Feb 2027" },
+  ];
+
+  // =====================================================================
+  // 8.3 FUNGSI BANTU
+  // =====================================================================
   const monthNamesShort = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
   const monthNamesLong = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
@@ -542,20 +719,128 @@
   function diffDays(d1, d2) { return Math.round((d1 - d2) / (1000 * 60 * 60 * 24)); }
   function getTimeStr(d) { return `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`; }
 
-  // ===== 8.3 SETINGAN TANGGAL KONTRAK =====
-  const today = new Date();
-  const projectStart = new Date(2026, 5, 17); 
-  const projectEnd = new Date(2027, 3, 17);   
+  function getWIBNow() {
+    const now = new Date();
+    const utcMs = now.getTime() + (now.getTimezoneOffset() * 60000);
+    return new Date(utcMs + (7 * 3600000));
+  }
+
+  function getWIBDateOnly() {
+    const wib = getWIBNow();
+    if (wib.getHours() === 0 && wib.getMinutes() === 0) {
+      return new Date(wib.getFullYear(), wib.getMonth(), wib.getDate() - 1);
+    }
+    return new Date(wib.getFullYear(), wib.getMonth(), wib.getDate());
+  }
+
+  // Format nominal ke Rupiah
+  function formatRupiah(num) {
+    return new Intl.NumberFormat('id-ID').format(num);
+  }
+
+  // =====================================================================
+  // 8.4 POPUP TAGIHAN TERMIN — INISIALISASI
+  // =====================================================================
+  function initTerminPopup() {
+    const overlay = document.getElementById('terminPopup');
+    const closeBtn = document.getElementById('popupCloseBtn');
+    const tbody = document.getElementById('terminTableBody');
+    const refDateEl = document.getElementById('terminRefDate');
+
+    // Isi tanggal referensi
+    const wibNow = getWIBNow();
+    refDateEl.textContent = `${formatDateShort(getWIBDateOnly())}, ${getTimeStr(wibNow)} WIB`;
+
+    // Hitung total dibayar
+    let totalDibayar = 0;
+    dataTermin.forEach(t => {
+      if (t.status === 'lunas') totalDibayar += t.nominal;
+    });
+
+    // Isi tabel termin
+    tbody.innerHTML = '';
+    dataTermin.forEach(t => {
+      const badgeClass = t.status;
+      const badgeLabel = t.status === 'lunas' ? 'Lunas' : t.status === 'jatuh-tempo' ? 'Jatuh Tempo' : 'Belum';
+
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td style="font-weight:600;color:var(--fg)">${t.no}</td>
+        <td>
+          <div style="font-weight:500;color:var(--fg);font-size:11px;line-height:1.4">${t.nama}</div>
+          <div class="mono" style="font-size:9px;color:var(--muted);margin-top:2px">${t.tanggal}</div>
+        </td>
+        <td class="col-pct" style="color:var(--hi-vis)">${t.pct}%</td>
+        <td class="col-nominal">Rp ${formatRupiah(t.nominal)}</td>
+        <td><span class="termin-badge ${badgeClass}">${badgeLabel}</span></td>
+      `;
+      tbody.appendChild(row);
+    });
+
+    // Baris total
+    const totalRow = document.createElement('tr');
+    totalRow.innerHTML = `
+      <td colspan="2" style="font-weight:700;color:var(--fg);text-align:right;padding-right:12px;border-top:2px solid var(--border-bright)">TOTAL</td>
+      <td class="col-pct" style="color:var(--hi-vis);font-weight:700;border-top:2px solid var(--border-bright)">100%</td>
+      <td class="col-nominal" style="color:var(--fg);font-weight:700;border-top:2px solid var(--border-bright)">Rp ${formatRupiah(nilaiKontrak)}</td>
+      <td style="border-top:2px solid var(--border-bright)"></td>
+    `;
+    tbody.appendChild(totalRow);
+
+    // Animasi progress bar
+    const pctDibayar = Math.round((totalDibayar / nilaiKontrak) * 100);
+    setTimeout(() => {
+      document.getElementById('terminProgressFill').style.width = pctDibayar + '%';
+      document.getElementById('terminPctText').textContent = pctDibayar + '%';
+    }, 600);
+
+    // Tampilkan popup setelah halaman dimuat
+    setTimeout(() => {
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }, 800);
+
+    // Fungsi tutup popup
+    function closePopup() {
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Tombol close
+    closeBtn.addEventListener('click', closePopup);
+
+    // Klik di luar modal untuk tutup
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) closePopup();
+    });
+
+    // Tekan Escape untuk tutup
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && overlay.classList.contains('active')) {
+        closePopup();
+      }
+    });
+  }
+
+  // =====================================================================
+  // 8.5 SETINGAN TANGGAL KONTRAK
+  // =====================================================================
+  const today = getWIBDateOnly();
+  const projectStart = new Date(2026, 5, 17);
+  const contractDuration = 8;
+  const projectEnd = new Date(2027, 1, 17);
   
   let monthsPassed = (today.getFullYear() - projectStart.getFullYear()) * 12 + (today.getMonth() - projectStart.getMonth());
   let reportDate = today;
   
-  if (monthsPassed < 0) { monthsPassed = 6; reportDate = addMonths(projectStart, monthsPassed); } 
-  else if (monthsPassed > 10) { monthsPassed = 10; reportDate = projectEnd; }
+  if (monthsPassed < 0) { monthsPassed = 0; reportDate = projectStart; }
+  else if (monthsPassed > contractDuration) { monthsPassed = contractDuration; reportDate = projectEnd; }
   
   const daysLeft = diffDays(projectEnd, reportDate);
 
-  // ===== 8.4 KALKULASI PROGRES OTOMATUS BERDASARKAN INPUT DATA =====
+  // =====================================================================
+  // 8.6 KALKULASI PROGRES
+  // =====================================================================
   let totalProgressVal = 0;
   let totalBobot = 0;
   const discList = document.getElementById('disciplineList');
@@ -593,35 +878,53 @@
   });
 
   const progressVal = +(totalProgressVal / (totalBobot / 100)).toFixed(1);
-  let plannedVal = +(1 / (1 + Math.exp(-7 * ((monthsPassed / 10) - 0.5))) * 100).toFixed(1);
-  if (monthsPassed >= 10) plannedVal = 100.0; // Paksa 100% di akhir kontrak
+  
+  let plannedVal = +(1 / (1 + Math.exp(-7 * ((monthsPassed / contractDuration) - 0.5))) * 100).toFixed(1);
+  if (monthsPassed >= contractDuration) plannedVal = 100.0;
+  
   const varianceVal = (progressVal - plannedVal).toFixed(1);
   const spiVal = (progressVal / plannedVal).toFixed(2);
 
-  // ===== 8.5 UPDATE UI DASBOR =====
-  document.getElementById('contractProgress').textContent = `Bulan Ke-${monthsPassed + 1} / 10`;
+  // =====================================================================
+  // 8.7 UPDATE UI
+  // =====================================================================
+  document.getElementById('contractProgress').textContent = `Bulan Ke-${monthsPassed + 1} / ${contractDuration}`;
   document.getElementById('endInfo').textContent = `${daysLeft > 0 ? daysLeft + ' hari lagi' : 'Selesai'}`;
   document.getElementById('plannedPercent').textContent = plannedVal + '%';
   document.getElementById('variancePercent').textContent = (varianceVal > 0 ? '+' : '') + varianceVal + '%';
   document.getElementById('variancePercent').style.color = varianceVal < 0 ? 'var(--danger)' : 'var(--success)';
   document.getElementById('spiVal').textContent = spiVal;
 
-  // ===== 8.6 JAM REAL-TIME =====
+  // =====================================================================
+  // 8.8 JAM REAL-TIME (WIB)
+  // =====================================================================
+  let lastKnownWIBDate = getWIBDateOnly().getTime();
+
   function updateClock() {
-    const now = new Date();
-    document.getElementById('liveClock').textContent = getTimeStr(now);
-    document.getElementById('footerSync').textContent = `${formatDateShort(reportDate)}, ${getTimeStr(now)} WIB`;
-    document.getElementById('sCurveUpdate').textContent = `Last update: ${formatDateShort(reportDate)} · ${getTimeStr(now)} WIB`;
-    document.getElementById('photoUpdate').textContent = `Pembaruan terakhir: ${formatDateLong(reportDate)} · 06:45 WIB`;
+    const nowWIB = getWIBNow();
+    const wibDateOnly = getWIBDateOnly();
+
+    document.getElementById('liveClock').textContent = getTimeStr(nowWIB);
+    document.getElementById('footerSync').textContent = `${formatDateShort(wibDateOnly)}, ${getTimeStr(nowWIB)} WIB`;
+    document.getElementById('sCurveUpdate').textContent = `Last update: ${formatDateShort(wibDateOnly)} · ${getTimeStr(nowWIB)} WIB`;
+    document.getElementById('photoUpdate').textContent = `Pembaruan terakhir: ${formatDateLong(wibDateOnly)} · ${getTimeStr(nowWIB)} WIB`;
+
+    const currentDateMs = wibDateOnly.getTime();
+    if (currentDateMs !== lastKnownWIBDate) {
+      lastKnownWIBDate = currentDateMs;
+      location.reload();
+    }
   }
   updateClock();
   setInterval(updateClock, 1000);
 
-  // ===== 8.7 KALKULASI MILESTONE DINAMIS =====
-  const l10Done = addMonths(projectStart, 2);  
-  const l16Active = addMonths(projectStart, 2);    
-  const topOff = addMonths(projectStart, 2);   
-  const mepTesting = addMonths(projectStart, 7); 
+  // =====================================================================
+  // 8.9 MILESTONE
+  // =====================================================================
+  const l10Done = addMonths(projectStart, 2);
+  const l16Active = addMonths(projectStart, 2);
+  const topOff = addMonths(projectStart, 2);
+  const mepTesting = addMonths(projectStart, 7);
 
   document.getElementById('msL10').textContent = `Target: ${formatDateShort(l10Done)}`;
   document.getElementById('msL16').textContent = `Target: ${formatDateShort(l16Active)}`;
@@ -630,7 +933,10 @@
   document.getElementById('msTopOffDays').textContent = `+${diffDays(topOff, reportDate)} hari`;
   document.getElementById('msMEPDays').textContent = `+${diffDays(mepTesting, reportDate)} hari`;
 
-  const tlDates = [projectStart, addMonths(projectStart, 2), addMonths(projectStart, 4), addMonths(projectStart, 6), addMonths(projectStart, 8), projectEnd];
+  const tlDates = [
+    projectStart, addMonths(projectStart, 1), addMonths(projectStart, 3),
+    addMonths(projectStart, 4), addMonths(projectStart, 6), addMonths(projectStart, 7), projectEnd
+  ];
   tlDates.forEach((d, i) => {
     const el = document.getElementById(`tl${i+1}`);
     if(el) el.textContent = `${monthNamesShort[d.getMonth()]} ${String(d.getFullYear()).substring(2)}`;
@@ -638,7 +944,9 @@
 
   document.getElementById('msProgressBar').style.width = progressVal + '%';
 
-  // ===== 8.8 ANIMASI RING PROGRES =====
+  // =====================================================================
+  // 8.10 ANIMASI RING PROGRES
+  // =====================================================================
   function animateRing() {
     const ring = document.getElementById('progressRing');
     const num = document.getElementById('progressNum');
@@ -660,24 +968,24 @@
   }
   setTimeout(animateRing, 300);
 
-  // ===== 8.9 GRAFIK KURVA S =====
+  // =====================================================================
+  // 8.11 GRAFIK KURVA S
+  // =====================================================================
   const ctx = document.getElementById('sCurveChart').getContext('2d');
   const monthLabels = [];
-  for(let i = 0; i <= 10; i++) {
+  
+  for(let i = 0; i <= contractDuration; i++) {
     let d = addMonths(projectStart, i);
     monthLabels.push(`${monthNamesShort[d.getMonth()]} ${String(d.getFullYear()).substring(2)}`);
   }
-  const totalMonths = monthLabels.length; 
+  const totalMonths = monthLabels.length;
 
-  // Data Rencana (Planned)
   const planned = monthLabels.map((_, i) => {
-    // Paksa nilai 100% di bulan terakhir (akhir periode April 27)
-    if (i === totalMonths - 1) return 100.0; 
+    if (i === totalMonths - 1) return 100.0;
     const x = i / (totalMonths - 1);
     return +(1 / (1 + Math.exp(-7 * (x - 0.5))) * 100).toFixed(1);
   });
 
-  // Data Realisasi (Actual)
   const actual = monthLabels.map((_, i) => {
     if(i > monthsPassed) return null;
     if(i === monthsPassed) return progressVal;
@@ -686,7 +994,6 @@
     return +(base * 0.92).toFixed(1);
   });
 
-// ===== PERBAIKAN POSISI REFRESH: SELALU MULAI DARI ATAS =====
   if (history.scrollRestoration) {
     history.scrollRestoration = 'manual';
   } else {
@@ -694,7 +1001,6 @@
   }
   window.scrollTo(0, 0);
   
-  // Konfigurasi Chart
   new Chart(ctx, {
     type: 'line',
     data: {
@@ -721,6 +1027,11 @@
       }
     }
   });
+
+  // =====================================================================
+  // 8.12 INISIALISASI POPUP TERMIN (panggil terakhir)
+  // =====================================================================
+  initTerminPopup();
 </script>
 
 </body>
