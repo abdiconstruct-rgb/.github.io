@@ -139,7 +139,6 @@
     height:6px;
   }
 
-  /* CSS untuk Tooltip / Comment Box */
   .info-wrap { position: relative; display: inline-flex; align-items: center; gap: 4px; }
   .info-btn {
     width: 14px; height: 14px; border-radius: 50%; border: 1px solid var(--border-bright);
@@ -174,7 +173,7 @@
   .popup-overlay.active{opacity:1;visibility:visible}
 
   .popup-modal{
-    width:94%;max-width:640px;max-height:88vh;
+    width:94%;max-width:680px;max-height:90vh;
     background:linear-gradient(180deg,rgba(30,36,46,0.98),rgba(17,21,27,0.98));
     border:1px solid var(--border-bright);border-radius:18px;
     backdrop-filter:blur(20px);
@@ -207,57 +206,87 @@
   .popup-close:hover{background:var(--danger);color:#fff;border-color:var(--danger);transform:scale(1.08)}
   .popup-close:focus{outline:2px solid var(--accent);outline-offset:2px}
 
-  .popup-body{padding:24px 28px 28px;overflow-y:auto;max-height:calc(88vh - 5px)}
+  .popup-body{padding:24px 28px 28px;overflow-y:auto;max-height:calc(90vh - 5px)}
 
   .termin-table{width:100%;border-collapse:separate;border-spacing:0;font-size:12px}
   .termin-table thead th{
-    text-align:left;padding:10px 12px;font-size:10px;font-weight:700;
+    text-align:left;padding:10px 10px;font-size:9px;font-weight:700;
     text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);
     border-bottom:1px solid var(--border-bright);background:var(--surface-2);
     position:sticky;top:0;z-index:2;
   }
   .termin-table thead th:first-child{border-radius:8px 0 0 0}
-  .termin-table thead th:last-child{border-radius:0 8px 0 0}
+  .termin-table thead th:last-child{border-radius:0 8px 0 0;text-align:center}
   .termin-table tbody td{
-    padding:10px 12px;border-bottom:1px solid var(--border);
+    padding:11px 10px;border-bottom:1px solid var(--border);
     color:var(--fg-dim);vertical-align:middle;
   }
   .termin-table tbody tr{transition:background 0.2s ease}
-  .termin-table tbody tr:hover{background:rgba(255,255,255,0.02)}
+  .termin-table tbody tr:hover{background:rgba(255,255,255,0.02) !important}
   .termin-table tbody tr:last-child td{border-bottom:none}
-  .termin-table .col-nominal{text-align:right;font-family:'JetBrains Mono',monospace;font-weight:500}
+  .termin-table .col-nominal{text-align:right;font-family:'JetBrains Mono',monospace;font-weight:500;white-space:nowrap}
   .termin-table .col-pct{text-align:center;font-family:'JetBrains Mono',monospace;font-weight:600}
 
   .termin-badge{
-    display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:6px;
-    font-size:9px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;
+    display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:3px 9px;border-radius:6px;
+    font-size:8px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;white-space:nowrap;
   }
   .termin-badge.lunas{background:rgba(95,208,126,0.12);color:var(--success);border:1px solid rgba(95,208,126,0.25)}
-  .termin-badge.jatuh-tempo{background:rgba(255,181,71,0.12);color:var(--warning);border:1px solid rgba(255,181,71,0.25)}
+  .termin-badge.jatuh-tempo{background:rgba(255,181,71,0.12);color:var(--warning);border:1px solid rgba(255,181,71,0.25);animation: pulse-badge 2s infinite}
   .termin-badge.belum{background:rgba(107,115,130,0.1);color:var(--muted);border:1px solid var(--border)}
+  
+  @keyframes pulse-badge {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255,181,71,0.3); }
+    50% { box-shadow: 0 0 0 4px rgba(255,181,71,0); }
+  }
 
   .termin-progress-track{
-    height:6px;border-radius:4px;background:rgba(255,255,255,0.06);overflow:hidden;margin-top:4px;
+    height:7px;border-radius:4px;background:rgba(255,255,255,0.06);overflow:hidden;margin-top:5px;
   }
   .termin-progress-fill{
     height:100%;border-radius:4px;background:linear-gradient(90deg,var(--accent),var(--hi-vis));
-    transition:width 1s cubic-bezier(.2,.8,.2,1);
+    transition:width 1.2s cubic-bezier(.2,.8,.2,1);
   }
 
   .popup-footer{
-    margin-top:20px;padding-top:16px;border-top:1px solid var(--border);
+    margin-top:22px;padding-top:16px;border-top:1px solid var(--border);
     display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;
+  }
+  
+  .current-progress-marker {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    background: rgba(255, 107, 26, 0.1);
+    border: 1px solid rgba(255, 107, 26, 0.3);
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .paid-stamp{
+    display:inline-flex;align-items:center;justify-content:center;
+    position:absolute;right:16px;top:50%;transform:translateY(-50%) rotate(-12deg);
+    padding:4px 14px;border-radius:6px;
+    font-size:11px;font-weight:900;letter-spacing:0.08em;text-transform:uppercase;
+    color:var(--success);border:2px solid var(--success);opacity:0.35;
+    pointer-events:none;
   }
 
   @media(max-width:600px){
-    .popup-body{padding:18px 16px 22px}
+    .popup-body{padding:18px 14px 22px}
     .termin-table{font-size:10px}
-    .termin-table thead th{padding:8px 6px;font-size:8px}
-    .termin-table tbody td{padding:8px 6px}
+    .termin-table thead th{padding:8px 5px;font-size:7px;letter-spacing:0.05em}
+    .termin-table tbody td{padding:9px 5px}
+    .col-nominal{font-size:9px !important}
     .popup-modal{border-radius:14px}
+    .paid-stamp{font-size:8px;padding:2px 8px}
   }
 
-  /* Responsive Typography & Sizing */
   @media (max-width:768px){
     .display-xl{font-size:40px !important;line-height:1 !important}
     .ring-wrap{width:180px;height:180px}
@@ -291,27 +320,30 @@
         <p class="text-[12px] mt-1" style="color:var(--fg-dim)">INDEPENDENCE Co-Living Space — PROJ-077/SPK-BLD/VI/2026</p>
       </div>
 
-      <!-- Ringkasan -->
+      <!-- Ringkasan Keuangan -->
       <div class="grid grid-cols-3 gap-3 mb-5">
         <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center">
-          <div class="text-[9px] uppercase tracking-widest font-bold" style="color:var(--muted)">Nilai Kontrak</div>
-          <div class="mono text-[14px] sm:text-[16px] font-bold mt-1" style="color:var(--hi-vis)">1.450.000.000</div>
+          <div class="text-[8px] sm:text-[9px] uppercase tracking-widest font-bold" style="color:var(--muted)">Nilai Kontrak</div>
+          <div class="mono text-[13px] sm:text-[15px] font-bold mt-1" style="color:var(--hi-vis)">1.591.000.000</div>
         </div>
         <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center">
-          <div class="text-[9px] uppercase tracking-widest font-bold" style="color:var(--muted)">Termin Dibayar</div>
-          <div class="mono text-[14px] sm:text-[16px] font-bold mt-1" style="color:var(--success)">290.000.000</div>
+          <div class="text-[8px] sm:text-[9px] uppercase tracking-widest font-bold" style="color:var(--muted)">Termin Dibayar</div>
+          <div class="mono text-[13px] sm:text-[15px] font-bold mt-1" style="color:var(--success)" id="totalDibayar">Rp 0</div>
         </div>
         <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center">
-          <div class="text-[9px] uppercase tracking-widest font-bold" style="color:var(--muted)">Sisa Tagihan</div>
-          <div class="mono text-[14px] sm:text-[16px] font-bold mt-1" style="color:var(--danger)">1.160.000.000</div>
+          <div class="text-[8px] sm:text-[9px] uppercase tracking-widest font-bold" style="color:var(--muted)">Sisa Tagihan</div>
+          <div class="mono text-[13px] sm:text-[15px] font-bold mt-1" style="color:var(--danger)" id="sisaTagihan">Rp 0</div>
         </div>
       </div>
 
-      <!-- Progress Pembayaran -->
+      <!-- Progress Pembayaran Keseluruhan -->
       <div class="mb-5">
         <div class="flex items-center justify-between mb-1">
-          <span class="text-[10px] uppercase tracking-widest font-bold" style="color:var(--muted)">Progress Pembayaran</span>
-          <span class="mono text-[12px] font-bold" style="color:var(--accent)" id="terminPctText">20%</span>
+          <div class="flex items-center gap-2">
+            <span class="text-[9px] sm:text-[10px] uppercase tracking-widest font-bold" style="color:var(--muted)">Progress Pembayaran</span>
+            <span class="current-progress-marker" id="currentProgressMarker">0% Actual</span>
+          </div>
+          <span class="mono text-[12px] font-bold" style="color:var(--accent)" id="terminPctText">0%</span>
         </div>
         <div class="termin-progress-track">
           <div class="termin-progress-fill" id="terminProgressFill" style="width:0%"></div>
@@ -323,11 +355,11 @@
         <table class="termin-table">
           <thead>
             <tr>
-              <th>Termin</th>
+              <th style="width:40px">Tahap</th>
               <th>Keterangan</th>
-              <th class="col-pct">%</th>
-              <th class="col-nominal">Nominal</th>
-              <th>Status</th>
+              <th class="col-pct" style="width:50px">%</th>
+              <th class="col-nominal" style="width:140px">Nominal (Rp)</th>
+              <th style="width:90px">Status</th>
             </tr>
           </thead>
           <tbody id="terminTableBody">
@@ -338,12 +370,12 @@
 
       <!-- Footer Popup -->
       <div class="popup-footer">
-        <div class="text-[10px]" style="color:var(--muted)">
-          <span class="mono">Tanggal referensi: <span id="terminRefDate">-</span></span>
+        <div class="text-[9px] sm:text-[10px]" style="color:var(--muted)">
+          <span class="mono">Ref: <span id="terminRefDate">-</span></span>
         </div>
         <div class="flex items-center gap-2">
           <span class="live-dot" style="width:6px;height:6px"></span>
-          <span class="text-[10px] mono" style="color:var(--fg-dim)">Data realtime</span>
+          <span class="text-[9px] sm:text-[10px] mono" style="color:var(--fg-dim)">Synced</span>
         </div>
       </div>
     </div>
@@ -692,17 +724,18 @@
   ];
 
   // =====================================================================
-  // 8.2 DATA TAGIHAN TERMIN
+  // 8.2 DATA TAGIHAN TERMIN (SESUAI SKEMA KONTRAK)
+  // ★ Tahap 1 (DP) DIBAYARKAN = status dikunci "lunas"
   // =====================================================================
-  const nilaiKontrak = 1450000000;
+  const nilaiKontrak = 1591000000;
 
   const dataTermin = [
-    { no: 1, nama: "Uang Muka (Down Payment)", pct: 20, nominal: 290000000, status: "lunas", tanggal: "17 Jun 2026" },
-    { no: 2, nama: "Termin I — Pondasi & Struktur Bawah", pct: 15, nominal: 217500000, status: "jatuh-tempo", tanggal: "17 Agu 2026" },
-    { no: 3, nama: "Termin II — Struktur Atas (L2)", pct: 15, nominal: 217500000, status: "belum", tanggal: "17 Okt 2026" },
-    { no: 4, nama: "Termin III — Arsitektur & MEP", pct: 20, nominal: 290000000, status: "belum", tanggal: "17 Des 2026" },
-    { no: 5, nama: "Termin IV — Finishing", pct: 15, nominal: 217500000, status: "belum", tanggal: "17 Jan 2027" },
-    { no: 6, nama: "Retensi / Serah Terima", pct: 15, nominal: 217500000, status: "belum", tanggal: "17 Feb 2027" },
+    { no: 1, nama: "Down Payment (Tahap 1)", pct: 25, nominal: 397750000, range: "0% - 25%",  status: "lunas" },
+    { no: 2, nama: "Pembayaran Tahap 2",     pct: 25, nominal: 397750000, range: "25% - 50%", status: "belum" },
+    { no: 3, nama: "Pembayaran Tahap 3",     pct: 25, nominal: 397750000, range: "50% - 75%", status: "belum" },
+    { no: 4, nama: "Pembayaran Tahap 4",     pct: 10, nominal: 159100000, range: "75% - 85%", status: "belum" },
+    { no: 5, nama: "Pembayaran Tahap 5",     pct: 10, nominal: 159100000, range: "85% - 100%",status: "belum" },
+    { no: 6, nama: "Masa Garansi (Tahap 6)", pct: 5,  nominal: 79550000,  range: "Pasca Garansi", status: "belum" },
   ];
 
   // =====================================================================
@@ -733,97 +766,12 @@
     return new Date(wib.getFullYear(), wib.getMonth(), wib.getDate());
   }
 
-  // Format nominal ke Rupiah
   function formatRupiah(num) {
     return new Intl.NumberFormat('id-ID').format(num);
   }
 
   // =====================================================================
-  // 8.4 POPUP TAGIHAN TERMIN — INISIALISASI
-  // =====================================================================
-  function initTerminPopup() {
-    const overlay = document.getElementById('terminPopup');
-    const closeBtn = document.getElementById('popupCloseBtn');
-    const tbody = document.getElementById('terminTableBody');
-    const refDateEl = document.getElementById('terminRefDate');
-
-    // Isi tanggal referensi
-    const wibNow = getWIBNow();
-    refDateEl.textContent = `${formatDateShort(getWIBDateOnly())}, ${getTimeStr(wibNow)} WIB`;
-
-    // Hitung total dibayar
-    let totalDibayar = 0;
-    dataTermin.forEach(t => {
-      if (t.status === 'lunas') totalDibayar += t.nominal;
-    });
-
-    // Isi tabel termin
-    tbody.innerHTML = '';
-    dataTermin.forEach(t => {
-      const badgeClass = t.status;
-      const badgeLabel = t.status === 'lunas' ? 'Lunas' : t.status === 'jatuh-tempo' ? 'Jatuh Tempo' : 'Belum';
-
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td style="font-weight:600;color:var(--fg)">${t.no}</td>
-        <td>
-          <div style="font-weight:500;color:var(--fg);font-size:11px;line-height:1.4">${t.nama}</div>
-          <div class="mono" style="font-size:9px;color:var(--muted);margin-top:2px">${t.tanggal}</div>
-        </td>
-        <td class="col-pct" style="color:var(--hi-vis)">${t.pct}%</td>
-        <td class="col-nominal">Rp ${formatRupiah(t.nominal)}</td>
-        <td><span class="termin-badge ${badgeClass}">${badgeLabel}</span></td>
-      `;
-      tbody.appendChild(row);
-    });
-
-    // Baris total
-    const totalRow = document.createElement('tr');
-    totalRow.innerHTML = `
-      <td colspan="2" style="font-weight:700;color:var(--fg);text-align:right;padding-right:12px;border-top:2px solid var(--border-bright)">TOTAL</td>
-      <td class="col-pct" style="color:var(--hi-vis);font-weight:700;border-top:2px solid var(--border-bright)">100%</td>
-      <td class="col-nominal" style="color:var(--fg);font-weight:700;border-top:2px solid var(--border-bright)">Rp ${formatRupiah(nilaiKontrak)}</td>
-      <td style="border-top:2px solid var(--border-bright)"></td>
-    `;
-    tbody.appendChild(totalRow);
-
-    // Animasi progress bar
-    const pctDibayar = Math.round((totalDibayar / nilaiKontrak) * 100);
-    setTimeout(() => {
-      document.getElementById('terminProgressFill').style.width = pctDibayar + '%';
-      document.getElementById('terminPctText').textContent = pctDibayar + '%';
-    }, 600);
-
-    // Tampilkan popup setelah halaman dimuat
-    setTimeout(() => {
-      overlay.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }, 800);
-
-    // Fungsi tutup popup
-    function closePopup() {
-      overlay.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-
-    // Tombol close
-    closeBtn.addEventListener('click', closePopup);
-
-    // Klik di luar modal untuk tutup
-    overlay.addEventListener('click', function(e) {
-      if (e.target === overlay) closePopup();
-    });
-
-    // Tekan Escape untuk tutup
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && overlay.classList.contains('active')) {
-        closePopup();
-      }
-    });
-  }
-
-  // =====================================================================
-  // 8.5 SETINGAN TANGGAL KONTRAK
+  // 8.4 KALKULASI PROGRES
   // =====================================================================
   const today = getWIBDateOnly();
   const projectStart = new Date(2026, 5, 17);
@@ -838,9 +786,6 @@
   
   const daysLeft = diffDays(projectEnd, reportDate);
 
-  // =====================================================================
-  // 8.6 KALKULASI PROGRES
-  // =====================================================================
   let totalProgressVal = 0;
   let totalBobot = 0;
   const discList = document.getElementById('disciplineList');
@@ -886,7 +831,7 @@
   const spiVal = (progressVal / plannedVal).toFixed(2);
 
   // =====================================================================
-  // 8.7 UPDATE UI
+  // 8.5 UPDATE UI DASBOR
   // =====================================================================
   document.getElementById('contractProgress').textContent = `Bulan Ke-${monthsPassed + 1} / ${contractDuration}`;
   document.getElementById('endInfo').textContent = `${daysLeft > 0 ? daysLeft + ' hari lagi' : 'Selesai'}`;
@@ -896,7 +841,7 @@
   document.getElementById('spiVal').textContent = spiVal;
 
   // =====================================================================
-  // 8.8 JAM REAL-TIME (WIB)
+  // 8.6 JAM REAL-TIME (WIB)
   // =====================================================================
   let lastKnownWIBDate = getWIBDateOnly().getTime();
 
@@ -919,7 +864,7 @@
   setInterval(updateClock, 1000);
 
   // =====================================================================
-  // 8.9 MILESTONE
+  // 8.7 MILESTONE
   // =====================================================================
   const l10Done = addMonths(projectStart, 2);
   const l16Active = addMonths(projectStart, 2);
@@ -945,7 +890,7 @@
   document.getElementById('msProgressBar').style.width = progressVal + '%';
 
   // =====================================================================
-  // 8.10 ANIMASI RING PROGRES
+  // 8.8 ANIMASI RING PROGRES
   // =====================================================================
   function animateRing() {
     const ring = document.getElementById('progressRing');
@@ -969,7 +914,7 @@
   setTimeout(animateRing, 300);
 
   // =====================================================================
-  // 8.11 GRAFIK KURVA S
+  // 8.9 GRAFIK KURVA S
   // =====================================================================
   const ctx = document.getElementById('sCurveChart').getContext('2d');
   const monthLabels = [];
@@ -1029,7 +974,132 @@
   });
 
   // =====================================================================
-  // 8.12 INISIALISASI POPUP TERMIN (panggil terakhir)
+  // 8.10 POPUP TAGIHAN TERMIN — INISIALISASI
+  // ★ DP (Tahap 1) sudah dibayar, status dikunci "lunas"
+  // =====================================================================
+  function initTerminPopup() {
+    const overlay = document.getElementById('terminPopup');
+    const closeBtn = document.getElementById('popupCloseBtn');
+    const tbody = document.getElementById('terminTableBody');
+    const refDateEl = document.getElementById('terminRefDate');
+    const currentProgressMarkerEl = document.getElementById('currentProgressMarker');
+
+    // Isi tanggal referensi
+    const wibNow = getWIBNow();
+    refDateEl.textContent = `${formatDateShort(getWIBDateOnly())}, ${getTimeStr(wibNow)} WIB`;
+    currentProgressMarkerEl.textContent = `${progressVal}% Actual`;
+
+    // Tentukan status termin berdasarkan progres aktual
+    // Tahap 1 (DP) SUDAH DIBAYAR — dikunci lunas
+    let totalDibayar = 0;
+
+    dataTermin.forEach(t => {
+      if (t.no === 1) {
+        // ★ DOWNPAYMENT SUDAH DIBAYAR — selalu lunas
+        t.status = 'lunas';
+        totalDibayar += t.nominal;
+      } else if (t.no === 6) {
+        // Tahap 6 dibayar setelah garansi, tidak terkait progress langsung
+        t.status = 'belum';
+      } else {
+        // Tahap 2-5: hitung otomatis berdasarkan progress aktual
+        const rangeParts = t.range.split(' - ');
+        const startPct = parseFloat(rangeParts[0]);
+        const endPct = parseFloat(rangeParts[1]);
+        
+        if (progressVal >= endPct) {
+          t.status = 'lunas';
+          totalDibayar += t.nominal;
+        } else if (progressVal >= startPct) {
+          t.status = 'jatuh-tempo';
+        } else {
+          t.status = 'belum';
+        }
+      }
+    });
+
+    // Update ringkasan keuangan
+    const sisa = nilaiKontrak - totalDibayar;
+    document.getElementById('totalDibayar').textContent = `Rp ${formatRupiah(totalDibayar)}`;
+    document.getElementById('sisaTagihan').textContent = `Rp ${formatRupiah(sisa)}`;
+
+    // Isi tabel termin
+    tbody.innerHTML = '';
+    dataTermin.forEach(t => {
+      const badgeClass = t.status;
+      const badgeLabel = t.status === 'lunas' ? 'Lunas' : t.status === 'jatuh-tempo' ? 'Jatuh Tempo' : 'Belum';
+
+      const row = document.createElement('tr');
+      
+      // Highlight baris berdasarkan status
+      let rowStyle = '';
+      if (t.status === 'lunas') {
+        rowStyle = 'background:rgba(95,208,126,0.05);';
+      } else if (t.status === 'jatuh-tempo') {
+        rowStyle = 'background:rgba(255,181,71,0.04);';
+      }
+      row.style.cssText = rowStyle;
+
+      // Ikon centang untuk yang lunas
+      const checkIcon = t.status === 'lunas' 
+        ? '<span style="color:var(--success);margin-right:4px;font-size:13px">&#10003;</span>' 
+        : '';
+
+      row.innerHTML = `
+        <td style="font-weight:700;color:var(--fg);text-align:center">${t.no}</td>
+        <td>
+          <div style="font-weight:600;color:var(--fg);font-size:11px;line-height:1.4">${checkIcon}${t.nama}</div>
+          <div class="mono" style="font-size:9px;color:var(--muted);margin-top:3px">Progress: ${t.range}</div>
+        </td>
+        <td class="col-pct" style="color:var(--hi-vis)">${t.pct}%</td>
+        <td class="col-nominal">${formatRupiah(t.nominal)}</td>
+        <td style="text-align:center"><span class="termin-badge ${badgeClass}">${badgeLabel}</span></td>
+      `;
+      tbody.appendChild(row);
+    });
+
+    // Baris total
+    const totalRow = document.createElement('tr');
+    totalRow.innerHTML = `
+      <td colspan="2" style="font-weight:800;color:var(--fg);text-align:right;padding-right:12px;border-top:2px solid var(--border-bright);font-size:12px">TOTAL KONTRAK</td>
+      <td class="col-pct" style="color:var(--hi-vis);font-weight:800;border-top:2px solid var(--border-bright)">100%</td>
+      <td class="col-nominal" style="color:var(--fg);font-weight:800;border-top:2px solid var(--border-bright)">${formatRupiah(nilaiKontrak)}</td>
+      <td style="border-top:2px solid var(--border-bright)"></td>
+    `;
+    tbody.appendChild(totalRow);
+
+    // Animasi progress bar pembayaran
+    const pctDibayar = Math.round((totalDibayar / nilaiKontrak) * 100);
+    setTimeout(() => {
+      document.getElementById('terminProgressFill').style.width = pctDibayar + '%';
+      document.getElementById('terminPctText').textContent = pctDibayar + '% Dibayar';
+    }, 600);
+
+    // Tampilkan popup setelah halaman dimuat
+    setTimeout(() => {
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }, 900);
+
+    // Fungsi tutup popup
+    function closePopup() {
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    closeBtn.addEventListener('click', closePopup);
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) closePopup();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && overlay.classList.contains('active')) {
+        closePopup();
+      }
+    });
+  }
+
+  // =====================================================================
+  // 8.11 INISIALISASI POPUP TERMIN
   // =====================================================================
   initTerminPopup();
 </script>
