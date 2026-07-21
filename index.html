@@ -732,6 +732,7 @@
   const dataTermin = [
     { no: 1, nama: "Down Payment (Tahap 1)", pct: 25, nominal: 397750000, range: "0% - 25%",  status: "lunas" },
     { no: 2, nama: "Pembayaran Tahap 2",     pct: 25, nominal: 397750000, range: "25% - 50%", status: "lunas" },
+       {nama: "Token Listrik", nominal: 606250, range: "25% - 50%", status: "Belum" },
     // { no: 3, nama: "Pembayaran Tahap 3",     pct: 25, nominal: 397750000, range: "50% - 75%", status: "belum" },
     // { no: 4, nama: "Pembayaran Tahap 4",     pct: 10, nominal: 159100000, range: "75% - 85%", status: "belum" },
     // { no: 5, nama: "Pembayaran Tahap 5",     pct: 10, nominal: 159100000, range: "85% - 100%",status: "belum" },
@@ -1060,8 +1061,7 @@
 
     // Baris total
     const totalRow = document.createElement('tr');
-    totalRow.innerHTML = `
-      <td colspan="2" style="font-weight:800;color:var(--fg);text-align:left;padding-left:12px;border-top:2px solid var(--border-bright);font-size:12px">Tagihan Token Listrik</td>
+    totalRow.innerHTML = `     
       <td colspan="2" style="font-weight:800;color:var(--fg);text-align:right;padding-right:12px;border-top:2px solid var(--border-bright);font-size:12px">TOTAL KONTRAK</td>
       <td class="col-pct" style="color:var(--hi-vis);font-weight:800;border-top:2px solid var(--border-bright)">100%</td>
       <td class="col-nominal" style="color:var(--fg);font-weight:800;border-top:2px solid var(--border-bright)">${formatRupiah(nilaiKontrak)}</td>
