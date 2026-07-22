@@ -371,7 +371,7 @@
             Pembayaran sebesar <strong>25%</strong> (dua puluh lima persen), pembayaran dilakukan saat progress pekerjaan <strong>0%</strong> (nol persen) dan akan dilaksanakan sampai dengan <strong>25%</strong> (dua puluh lima persen).
           </div>
           <!-- ★ RUBAH VALUE DI SINI: Nominal (Lambang $ sudah dihilangkan) -->
-          <div class="termin-amount dp">Rp. 397.750.000</div>
+          <p>Termin Ke-2 </p><div class="termin-amount dp">Rp. 397.750.000</div>
           <div style="font-size:10px;color:var(--success);margin-top:3px;font-style:italic">Tiga ratus sembilan puluh tujuh juta tujuh ratus lima puluh ribu rupiah</div>
           <div class="termin-status" id="statusTermin1">Memuat progress...</div>
         </div>
@@ -381,7 +381,7 @@
       <div class="termin-row">
         <div class="termin-num active">2</div>
         <div class="termin-info">
-          <div class="termin-label" id="terminLabel2">Tahap 2</div>
+          <div class="termin-label">Tahap 2</div>
           <div class="termin-desc">
             Pembayaran sebesar <strong>25%</strong> (dua puluh lima persen), pembayaran dilakukan saat progress pekerjaan <strong>25%</strong> (dua puluh lima persen) dan akan dilaksanakan sampai dengan <strong>50%</strong> (lima puluh persen).
           </div>
@@ -735,7 +735,7 @@
       if (p < 25) {
         el2.innerHTML = `<span style="color:var(--muted)">Menunggu progress keseluruhan mencapai 25% (Saat ini: ${p}%)</span>`;
       } else {
-        el2.innerHTML = `<span style="color:var(--warning); font-weight:700;">⏳ Menunggu Pembayaran</span><br><span style="color:var(--fg-dim)">Progress keseluruhan sudah ${p}%</span>`;
+        el2.innerHTML = `<span style="color:var(--warning); font-weight:700;">⏳ Awaiting Payment</span><br><span style="color:var(--fg-dim)">Progress keseluruhan sudah ${p}%</span>`;
         el2.style.borderColor = 'rgba(255,181,71,0.2)';
         el2.style.background = 'rgba(255,181,71,0.03)';
       }
