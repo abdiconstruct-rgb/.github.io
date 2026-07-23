@@ -336,7 +336,158 @@
 <!-- =====================================================================
      POPUP TAGIHAN TERMIN — ★ RUBAH VALUE DI SINI (Lambang $ dihilangkan)
      ===================================================================== -->
+<div class="termin-overlay" id="terminOverlay">
 
+  <div class="termin-modal">
+
+    <!-- HEADER dengan Progress Aktual & tombol X -->
+    <div class="termin-header">
+      <div class="termin-header-title">
+        <div class="termin-header-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1a1300" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+        </div>
+        <span>Tagihan Termin Pembayaran</span>
+      </div>
+      
+      <!-- PROGRESS AKTUAL DI HEADER -->
+      <div class="termin-header-progress">
+        <span class="termin-header-prog-label">Progress Aktual</span>
+        <div class="termin-header-prog-bar">
+          <div class="termin-header-prog-fill" id="terminHeaderProgFill" style="width: 0%"></div>
+        </div>
+        <span class="termin-header-prog-val mono" id="terminHeaderProgVal">0%</span>
+      </div>
+
+      <button class="termin-close-x" id="terminCloseX" aria-label="Tutup">&times;</button>
+    </div>
+
+    <!-- BODY daftar termin -->
+    <div class="termin-body">
+
+      <!-- <div style="margin-bottom:14px;padding:10px 14px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid var(--border)">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:700;margin-bottom:3px">Nilai Kontrak</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:800;color:var(--fg)">Rp. 1.591.000.000</div>
+      </div> -->
+
+      <!-- ===== TERMIN 1 (Down Payment) - LUNAS ===== -->
+      <div class="termin-row">
+        <div class="termin-num done">1</div>
+        <div class="termin-info">
+          <div class="termin-label">
+            Down Payment (Tahap 1)
+            <span class="pill-lunas">✓ Lunas</span>
+          </div>
+          <div class="termin-desc">
+            Pembayaran sebesar <strong>25%</strong> (dua puluh lima persen), pembayaran dilakukan saat progress pekerjaan <strong>0%</strong> (nol persen) dan akan dilaksanakan sampai dengan <strong>25%</strong> (dua puluh lima persen).
+          </div>
+          <!-- ★ RUBAH VALUE DI SINI: Nominal (Lambang $ sudah dihilangkan) -->
+          <div class="termin-amount done">Rp. 397.750.000</div>
+          <div style="font-size:10px;color:var(--success);margin-top:3px;font-style:italic">Tiga ratus sembilan puluh tujuh juta tujuh ratus lima puluh ribu rupiah</div>
+          <div class="termin-status" id="statusTermin1">Memuat progress...</div>
+        </div>
+      </div>
+
+      <!-- ===== TERMIN 2 ===== -->
+      <div class="termin-row">
+        <div class="termin-num active">2</div>
+        <div class="termin-info">
+          <div class="termin-label">Tahap 2</div>
+          <div class="termin-desc">
+            Pembayaran sebesar <strong>25%</strong> (dua puluh lima persen), pembayaran dilakukan saat progress pekerjaan <strong>25%</strong> (dua puluh lima persen) dan akan dilaksanakan sampai dengan <strong>50%</strong> (lima puluh persen).
+          </div>
+          <!-- ★ RUBAH VALUE DI SINI: Nominal (Lambang $ sudah dihilangkan) -->
+          <div style="font-size:12px">Termin Ke-2 <span style="margin-left: 15px" class="termin-amount">Rp. 397.750.000</span></div>
+          <div style="font-size:10px;color:var(--muted);margin-top:3px;font-style:italic">Tiga ratus sembilan puluh tujuh juta tujuh ratus lima puluh ribu rupiah</div>
+          <div style="font-size:12px">Token Listrik 1 <span style="margin-left: 15px" class="termin-amount">Rp. 102.750</span>
+              <a href="https://raw.githubusercontent.com/abdiconstruct-rgb/reportprogres/refs/heads/main/Token%20Listrik%201.jpeg" class="termin-view-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              VIEW
+            </a></div>
+          <div style="font-size:12px">Token Listrik 2 <span style="margin-left: 15px" class="termin-amount">Rp. 503.500</span>
+             <a href="https://raw.githubusercontent.com/abdiconstruct-rgb/reportprogres/refs/heads/main/Token%20Listrik%202.jpeg" class="termin-view-btn">
+             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              VIEW
+            </a></div>
+             <div class="termin-status" id="statusTermin2">Memuat progress...</div>
+        </div>
+      </div>
+
+      <!-- ===== TERMIN 3 ===== 
+      <div class="termin-row">
+        <div class="termin-num">3</div>
+        <div class="termin-info">
+          <div class="termin-label">Tahap 3</div>
+          <div class="termin-desc">
+            Pembayaran sebesar <strong>25%</strong> (dua puluh lima persen), pembayaran dilakukan saat progress pekerjaan <strong>50%</strong> (lima puluh persen) dan akan dilaksanakan sampai dengan <strong>75%</strong> (tujuh puluh lima persen).
+          </div>
+          <!-- ★ RUBAH VALUE DI SINI: Nominal (Lambang $ sudah dihilangkan) 
+          <div class="termin-amount">Rp. 397.750.000</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:3px;font-style:italic">Tiga ratus sembilan puluh tujuh juta tujuh ratus lima puluh ribu rupiah</div>
+          <div class="termin-status" id="statusTermin3">Memuat progress...</div>
+        </div>
+      </div> -->
+
+      <!-- ===== TERMIN 4 ===== 
+      <div class="termin-row">
+        <div class="termin-num">4</div>
+        <div class="termin-info">
+          <div class="termin-label">Tahap 4</div>
+          <div class="termin-desc">
+            Pembayaran sebesar <strong>10%</strong> (sepuluh persen), pembayaran dilakukan saat progress pekerjaan <strong>75%</strong> (tujuh puluh lima persen) dan akan dilaksanakan sampai dengan <strong>85%</strong> (delapan puluh lima persen).
+          </div>
+          <!-- ★ RUBAH VALUE DI SINI: Nominal (Lambang $ sudah dihilangkan) 
+          <div class="termin-amount">Rp. 159.100.000</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:3px;font-style:italic">Seratus lima puluh sembilan juta seratus ribu rupiah</div>
+          <div class="termin-status" id="statusTermin4">Memuat progress...</div>
+        </div>
+      </div> -->
+
+      <!-- ===== TERMIN 5 ===== 
+      <div class="termin-row">
+        <div class="termin-num">5</div>
+        <div class="termin-info">
+          <div class="termin-label">Tahap 5</div>
+          <div class="termin-desc">
+            Pembayaran sebesar <strong>10%</strong> (sepuluh persen), pembayaran dilakukan saat progress pekerjaan <strong>85%</strong> (delapan puluh lima persen) dan akan dilaksanakan sampai dengan <strong>100%</strong> (seratus persen).
+          </div>
+          <!-- ★ RUBAH VALUE DI SINI: Nominal (Lambang $ sudah dihilangkan) 
+          <div class="termin-amount">Rp. 159.100.000</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:3px;font-style:italic">Seratus lima puluh sembilan juta seratus ribu rupiah</div>
+          <div class="termin-status" id="statusTermin5">Memuat progress...</div>
+        </div>
+      </div> -->
+
+      <!-- ===== TERMIN 6 ===== 
+      <div class="termin-row">
+        <div class="termin-num">6</div>
+        <div class="termin-info">
+          <div class="termin-label">Tahap 6 (Retensi)</div>
+          <div class="termin-desc">
+            Pembayaran sebesar <strong>5%</strong> (lima persen), pembayaran dilakukan setelah berakhirnya masa garansi bangunan.
+          </div>
+          <!-- ★ RUBAH VALUE DI SINI: Nominal (Lambang $ sudah dihilangkan) 
+          <div class="termin-amount">Rp. 79.550.000</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:3px;font-style:italic">Tujuh puluh sembilan juta lima ratus lima puluh ribu rupiah</div>
+          <div class="termin-status" id="statusTermin6">Memuat progress...</div>
+        </div>
+      </div> -->
+
+    </div>
+  
+
+    <!-- FOOTER dengan tombol Close -->
+    <div class="termin-footer">
+      <div>
+        <div class="termin-total">Total Tagihan</div>
+        <!-- ★ RUBAH VALUE DI SINI: Total keseluruhan -->
+        <div class="termin-total-val">Rp. 398.356.250</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:3px;font-style:italic">Tiga ratus sembilan puluh delapan juta tiga ratus lima puluh enam ribu dua ratus lima puluh rupiah</div>
+      </div>
+      <button class="termin-close-btn" id="terminCloseBtn">CLOSE</button>
+    </div>
+
+  </div>
+     </div>
      
 
 <!-- =====================================================================
